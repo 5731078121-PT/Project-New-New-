@@ -8,6 +8,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
+import java.awt.image.BufferedImageOp;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -52,7 +53,22 @@ public class DrawingUtility {
 	public static BufferedImage sound = getImage("res/img/sound-but-all.png");
 	public static BufferedImage replay = getImage("res/img/replay-but.png");
 	public static BufferedImage winLine = getImage("res/img/winLine.png");
+	public static BufferedImage gameName = getImage("res/img/GameName.png");
 	public static BufferedImage[] bg = new BufferedImage[7];
+	
+	public static BufferedImage[] startBG = new BufferedImage[3];
+	public static BufferedImage startDragon = getImage("res/img/start-dragon-all.png");
+	public static BufferedImage startButton = getImage("res/img/start-but-all.png");
+	public static BufferedImage startButtonCover = getImage("res/img/start-but-all-cover.png");
+	public static BufferedImage startDuck = getImage("res/img/start-duck-all.png");
+	public static BufferedImage startName = getImage("res/img/start-name-all.png");
+	
+	
+	public static void createStartBg(){
+		startBG[0] = getImage("res/img/start-bg.png");
+		startBG[1] = getImage("res/img/start-bg2.png");
+		startBG[2] = getImage("res/img/start-bg3.png");
+	}
 	
 	public static void createBg(){
 		bg[0] = getImage("res/img/background-1.png");
@@ -74,6 +90,7 @@ public class DrawingUtility {
 	public static final AffineTransformOp resizeShell = new AffineTransformOp(AffineTransform.getScaleInstance(0.75/2, 0.75/2), AffineTransformOp.TYPE_BICUBIC);
 	public static final AffineTransformOp resizeBg = new AffineTransformOp(AffineTransform.getScaleInstance(1/1.2, 1/1.2), AffineTransformOp.TYPE_BICUBIC);
 	public static final AffineTransformOp resizeHalf = new AffineTransformOp(AffineTransform.getScaleInstance(0.5,0.5), AffineTransformOp.TYPE_BICUBIC);
+	public static final AffineTransformOp resizeTwoFive = new AffineTransformOp(AffineTransform.getScaleInstance(0.4,0.4), AffineTransformOp.TYPE_BICUBIC);
 	
 	protected static BufferedImage waveAnim;
 	
@@ -158,6 +175,10 @@ public class DrawingUtility {
 		g.drawImage(starUse, resizeStar, x, y);
 	}
 	
+	public static void drawGameName(Graphics2D g, int x, int y){
+		g.drawImage(gameName, resizeTwoFive, x, y);
+	}
+	
 	public static void drawPauseScreen(Graphics2D g){
 		AlphaComposite tran = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.7f);
 		g.setComposite(tran);
@@ -240,6 +261,23 @@ public class DrawingUtility {
 		g.drawImage(sub, resizeHalf, 175, 125-45/2);
 	}
 	
-	
+	public static void drawGameTitle(Graphics2D g,int i2, int i, boolean isStarted){
+		
+		createStartBg();
+		g.drawImage(startBG[0], null, 0, 0);
+		
+		BufferedImage startDragonUse = startDragon.getSubimage((i%8)*600, 0, 600, 700);
+		g.drawImage(startDragonUse, null, 0, 0);
+		
+		BufferedImage startNameUse = startName.getSubimage((i%2)*600, 0, 600, 700);
+		g.drawImage(startNameUse, null, 0, 0);
+		
+		BufferedImage startDuckUse = startDuck.getSubimage(((i/2)%12)*600, 0, 600, 700);
+		g.drawImage(startDuckUse, null, 0, 0);
+		
+		BufferedImage startButtonUse = startButton.getSubimage((i2%4)*600, 0, 600, 700);
+		g.drawImage(startButtonUse, null, 0, 0);
+		
+	}
 	
 }
