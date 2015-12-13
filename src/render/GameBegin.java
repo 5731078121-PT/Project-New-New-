@@ -52,12 +52,9 @@ public class GameBegin extends JComponent {
 					if(450 <= e.getY() && e.getY() <= 510){
 //						click PLAY but
 						if(200 <= e.getX() && e.getX() <= 295){
-							if(index != -1){
-								GameLogic.playerStatus = new PlayerStatus(name[index], state[index], star[index]);
-								GameSaveUtility.recordData();
-								Main.runGame();
-								
-							}
+							GameLogic.playerStatus = new PlayerStatus(name[0], state[0], star[0]);
+							GameSaveUtility.recordData();
+							Main.runGame();
 						}
 //						click BIN but
 						else if(305 <= e.getX() && e.getX() <= 400){
