@@ -139,6 +139,7 @@ public class GameScreen extends JComponent {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
 		DrawingUtility.drawBg(g2, ranBg);
+		DrawingUtility.drawGameName(g2, 160, 20);
 		
 		RenderableHolder.sort();
 		synchronized (RenderableHolder.getInstance()) {

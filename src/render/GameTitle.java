@@ -16,10 +16,15 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import utility.DrawingUtility;
 import logic.GameLogic;
 import main.Main;
 
 public class GameTitle extends JPanel{
+	
+	private int index = 0;
+	private int count = 0;
+	
 	public GameTitle() {
 		// TODO Auto-generated constructor stub
 		this.setPreferredSize(new Dimension(GameScreen.WIDTH, GameScreen.HEIGHT));
@@ -36,6 +41,7 @@ public class GameTitle extends JPanel{
 				Main.startGame();
 			}
 		});
+		start.setVisible(false);
 		
 		this.setVisible(true);
 	}
@@ -45,10 +51,19 @@ public class GameTitle extends JPanel{
 		// TODO Auto-generated method stub
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
-		AlphaComposite tran = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1);
-		g2.setComposite(tran);
-		g2.setColor(Color.black);
-		g2.fillRect(0, 0, GameScreen.WIDTH, GameScreen.HEIGHT);
-	
+//		AlphaComposite tran = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1);
+//		g2.setComposite(tran);
+//		g2.setColor(Color.black);
+//		g2.fillRect(0, 0, GameScreen.WIDTH, GameScreen.HEIGHT);
+		
+		if(index == 24) index = 0;
+		DrawingUtility.drawGameTitle(g2, index, count, Main.isStart);
+		//index++;
+		
+		if(count == 4) {
+			count = 0;
+			if(count%2 == 0) index++;
+		}
+		count++;
 	}
 }
