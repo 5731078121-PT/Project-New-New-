@@ -5,17 +5,17 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 
 import logic.GameLogic;
+import render.GameBegin;
 import render.GameScreen;
 import render.GameTitle;
 import render.GameWindow;
-
-
 
 public class Main {
 	public static JFrame frame;
 	public static GameLogic gameLogic;
 	public static GameScreen gameScreen;
 	public static GameTitle gameTitle;
+	public static GameBegin gameBegin;
 	public static boolean isStart;
 	public static GameWindow gameWindow;
 	public static JComponent nextScene = null;
@@ -59,6 +59,10 @@ public class Main {
 		
 		nextScene = gameScreen;
 		
+	}
+	public static void startGame(){
+		gameBegin = new GameBegin();
+		nextScene = gameBegin;
 	}
 	
 }

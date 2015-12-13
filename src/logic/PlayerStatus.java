@@ -1,7 +1,9 @@
 package logic;
 
 import java.awt.AlphaComposite;
+import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.geom.Rectangle2D;
 
 import render.IRenderable;
 import render.RenderableHolder;
@@ -20,12 +22,19 @@ public class PlayerStatus implements IRenderable{
 	public boolean isEnd;
 	public boolean isWin;
 	
-	public PlayerStatus() {
+	public PlayerStatus(String name, int state, int money) {
 		// TODO Auto-generated constructor stub
-		this.money = 100;
-		this.state = 4;
+		this.name = name;
+		this.money = money;
+		this.state = state;
 		this.time = this.timeMax;
 	}
+//	public PlayerStatus() {
+//		// TODO Auto-generated constructor stub
+//		this.time = this.timeMax;
+//		this.money = 100;
+//		this.state = 10;
+//	}
 	
 	public boolean isPause(){
 		return isPause;
@@ -45,12 +54,21 @@ public class PlayerStatus implements IRenderable{
 	public void draw(Graphics2D g) {
 		// TODO Auto-generated method stub
 		DrawingUtility.drawWinLine(g, this.time);
-		AlphaComposite tran = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1);
+		
+		AlphaComposite tran = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f);
+		g.setComposite(tran);
+		g.setColor(new Color(153, 43, 181));
+		g.fillRoundRect(30, 30, 115, 85, 30, 30);
+		
+		tran = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1);
 		g.setComposite(tran);
 		
-		DrawingUtility.drawStar(g, 50, 126, 0);
+		g.setColor(Color.white);
+		DrawingUtility.drawStar(g, 50, 80, 0);
 		g.setFont(DrawingUtility.standardFont);
-		g.drawString(Integer.toString(money), 85, 155);
+		g.drawString(Integer.toString(money), 83, 108);
+		Rectangle2D rec = g.getFontMetrics().getStringBounds(name, g);
+		g.drawString(name, (int) (50 + 75/2 - rec.getWidth()/2), 70);
 		g.setFont(DrawingUtility.smallFont);
 	}
 	
