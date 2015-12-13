@@ -57,12 +57,12 @@ public class GameTitle extends JPanel{
 //		g2.fillRect(0, 0, GameScreen.WIDTH, GameScreen.HEIGHT);
 		
 		if(index == 24) index = 0;
-		DrawingUtility.drawGameTitle(g2,count, index, Main.isStart);
+		DrawingUtility.drawGameTitle(g2, index, count, Main.isStart);
 		//index++;
 		
-		if(count == 2) {
+		if(count == 4) {
 			count = 0;
-			index++;
+			if(count%2 == 0) index++;
 		}
 		count++;
 	}

@@ -261,7 +261,7 @@ public class DrawingUtility {
 		g.drawImage(sub, resizeHalf, 175, 125-45/2);
 	}
 	
-	public static void drawGameTitle(Graphics2D g,int i2, int i, boolean isStarted){
+	public static void drawGameTitle(Graphics2D g, int i, int ibut, boolean isStarted){
 		
 		createStartBg();
 		g.drawImage(startBG[0], null, 0, 0);
@@ -275,7 +275,7 @@ public class DrawingUtility {
 		BufferedImage startDuckUse = startDuck.getSubimage(((i/2)%12)*600, 0, 600, 700);
 		g.drawImage(startDuckUse, null, 0, 0);
 		
-		BufferedImage startButtonUse = startButton.getSubimage((i2%4)*600, 0, 600, 700);
+		BufferedImage startButtonUse = startButton.getSubimage((ibut%4)*600, 0, 600, 700);
 		g.drawImage(startButtonUse, null, 0, 0);
 		
 	}
