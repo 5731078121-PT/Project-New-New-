@@ -60,7 +60,7 @@ public class GameScreen extends JComponent {
 				if(e.getButton() == 1){
 					if(InputUtility.isMouseRightClickUp()){
 						InputUtility.setMouseRightClickUp(false);
-						if(!GameLogic.playerStatus.isPause())
+						if(!GameLogic.playerStatus.isPause() && !GameLogic.playerStatus.isEnd)
 							GameLogic.playerStatus.setPause(true);
 						InputUtility.setMouseLeftDown(false);
 						InputUtility.setMouseLeftDownTrigger(false);
@@ -179,27 +179,33 @@ public class GameScreen extends JComponent {
 			}else DrawingUtility.drawLoseScreen(g2);
 			
 		}else if(GameLogic.playerStatus.isPause() ){
-				DrawingUtility.drawPauseScreen(g2);
-				if(InputUtility.isMouseLeftDownTrigger()){
-					if(InputUtility.getMouseY() >= 475/2+125 && InputUtility.getMouseY() <= 475/2+225){
-						if(InputUtility.getMouseX() >= 375/2 && InputUtility.getMouseX() <= 375/2+100){
-							Main.titleScene();
-							GameLogic.playerStatus.isEnd = true;
-						}
-//						sound
-						if(InputUtility.getMouseX() >= 125+375/2 && InputUtility.getMouseX() <= 225+375/2){
-							DrawingUtility.isMute = !DrawingUtility.isMute;
-						}
-						
+			DrawingUtility.drawPauseScreen(g2);
+			if(InputUtility.isMouseLeftDownTrigger()){
+				if(InputUtility.getMouseY() >= 475/2+125 && InputUtility.getMouseY() <= 475/2+225){
+//					back to HOME
+					if(InputUtility.getMouseX() >= 375/2 && InputUtility.getMouseX() <= 375/2+100){
+						Main.titleScene();
+						GameLogic.playerStatus.isEnd = true;
 					}
-					if(InputUtility.getMouseY() >= 475/2 && InputUtility.getMouseY() <= 475/2+100){
-						if(InputUtility.getMouseX() >= 125+375/2 && InputUtility.getMouseX() <= 225+375/2){
-							GameLogic.playerStatus.setPause(false);
-						}
-//						new state again
+//					sound
+					if(InputUtility.getMouseX() >= 125+375/2 && InputUtility.getMouseX() <= 225+375/2){
+						DrawingUtility.isMute = !DrawingUtility.isMute;
+					}
+					
+				}
+				if(InputUtility.getMouseY() >= 475/2 && InputUtility.getMouseY() <= 475/2+100){
+					if(InputUtility.getMouseX() >= 125+375/2 && InputUtility.getMouseX() <= 225+375/2){
+						GameLogic.playerStatus.setPause(false);
+					}
+//					new state again
+					if(InputUtility.getMouseX() >= 375/2 && InputUtility.getMouseX() <= 375/2+100){
+						
+						Main.runGame();
+						
 					}
 				}
 			}
+		}
 		
 	}
 	

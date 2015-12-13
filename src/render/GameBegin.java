@@ -11,6 +11,8 @@ import java.awt.event.MouseMotionListener;
 import java.awt.geom.Rectangle2D;
 
 import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import input.InputUtility;
 import logic.GameLogic;
@@ -25,6 +27,7 @@ public class GameBegin extends JComponent {
 	private int[] state;	
 	private int[] star;
 	private int index;
+	private int mouseClickX  = -1, mouseClickY = -1;
 	
 	public GameBegin() {
 		// TODO Auto-generated constructor stub
@@ -47,15 +50,55 @@ public class GameBegin extends JComponent {
 				super.mouseClicked(e);
 				if(e.getButton() == 1){
 					if(450 <= e.getY() && e.getY() <= 510){
+//						click PLAY but
 						if(200 <= e.getX() && e.getX() <= 295){
-							GameLogic.playerStatus = new PlayerStatus(name[3], state[3], star[3]);
+							GameLogic.playerStatus = new PlayerStatus(name[0], state[0], star[0]);
+							GameSaveUtility.recordData();
 							Main.runGame();
 						}
+//						click BIN but
 						else if(305 <= e.getX() && e.getX() <= 400){
 							if(index != -1){
+								System.out.println("binbin");
 								GameSaveUtility.removePlayer(index);
-							}
+								String str = GameSaveUtility.updateData();
+								data = str.split("\n");
+								mouseClickX = -1;
+								mouseClickY = -1;
+								updateData();							}
 						}
+					}
+										
+					if(200 <= InputUtility.getMouseX() && InputUtility.getMouseX() <= 400){
+						if(125 <= InputUtility.getMouseY() && InputUtility.getMouseY() <= 125+60){
+							mouseClickX = e.getX();
+							mouseClickY = e.getY();
+							index = 0;
+							noName(index);
+						}else if(125+1*65 <= InputUtility.getMouseY() && InputUtility.getMouseY() <= 125+60*2){
+							mouseClickX = e.getX();
+							mouseClickY = e.getY();
+							index = 1;
+							noName(index);
+						}else if(125+2*65 <= InputUtility.getMouseY() && InputUtility.getMouseY() <= 125+60*3){
+							mouseClickX = e.getX();
+							mouseClickY = e.getY();
+							index = 2;
+							noName(index);
+						}else if(125+3*65 <= InputUtility.getMouseY() && InputUtility.getMouseY() <= 125+60*4){
+							mouseClickX = e.getX();
+							mouseClickY = e.getY();
+							index = 3;
+							noName(index);
+						}else if(125+4*65 <= InputUtility.getMouseY() && InputUtility.getMouseY() <= 125+60*5){
+							mouseClickX = e.getX();
+							mouseClickY = e.getY();
+							index = 4;
+							noName(index);
+						}
+					}else{
+						mouseClickX = -1;
+						mouseClickY = -1;
 					}
 					
 					if(!InputUtility.isMouseLeftDown()){
@@ -94,6 +137,19 @@ public class GameBegin extends JComponent {
 		});
 	}
 	
+	private void noName(int index){
+		if(!name[index].equals("no name")) return ;
+		String name = JOptionPane.showInputDialog(new JFrame(), "Enter your name", "Welcome", JOptionPane.QUESTION_MESSAGE);
+		name = name.toUpperCase();
+		GameSaveUtility.addPlayer(name);
+		String str = GameSaveUtility.updateData();
+		data = str.split("\n");
+		updateData();
+		return ;
+		
+
+	}
+	
 	private void updateData(){
 		for(int i = 0; i<5; i++){
 			name[i] = data[i].substring(0, data[i].indexOf(":"));
@@ -109,16 +165,39 @@ public class GameBegin extends JComponent {
 		// TODO Auto-generated method stub
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
+//		background
 		AlphaComposite noTran = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1);
 		g2.setComposite(noTran);
 		g2.setColor(new Color(255/2, 0, 255/2));
 		g2.fillRect(0, 0, GameScreen.WIDTH, GameScreen.HEIGHT);
 		
+		System.out.println(index);
+		
+//		action when PLAY'S NAME is clicked
+		g2.setColor(Color.white);
+		if(mouseClickX != -1 && mouseClickY != -1){
+			if(200 <= mouseClickX && mouseClickX <= 400){
+				if(125 <= mouseClickY && mouseClickY <= 125+60){
+					g2.fillRoundRect(195, 120 + 0*65, 210, 70, 35, 35);
+				}else if(125+1*65 <= mouseClickY && mouseClickY <= 125+60*2){
+					g2.fillRoundRect(195, 120 + 1*65, 210, 70, 35, 35);
+				}else if(125+2*65 <= mouseClickY && mouseClickY <= 125+60*3){
+					g2.fillRoundRect(195, 120 + 2*65, 210, 70, 35, 35);
+				}else if(125+3*65 <= mouseClickY && mouseClickY <= 125+60*4){
+					g2.fillRoundRect(195, 120 + 3*65, 210, 70, 35, 35);
+				}else if(125+4*65 <= mouseClickY && mouseClickY <= 125+60*5){
+					g2.fillRoundRect(195, 120 + 4*65, 210, 70, 35, 35);
+				}
+			}
+		}
+		
+//		button PLAY and BIN
 		g2.setColor(Color.DARK_GRAY);
 		g2.fillRoundRect(200, 450, 95, 60, 30, 30);
 		g2.fillRoundRect(305, 450, 95, 60, 30, 30);
 		g2.setFont(DrawingUtility.standardFont);
 		
+//		button PLAYER'S NAME
 		for(int i = 0; i<name.length; i++){
 			g2.setColor(Color.DARK_GRAY);
 			g2.fillRoundRect(200, 125 + i*65, 200, 60, 30, 30);
@@ -132,12 +211,12 @@ public class GameBegin extends JComponent {
 		
 		AlphaComposite tran = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f);
 		g2.setComposite(tran);
-		
+//		action when mouse over
 		g2.setColor(Color.pink);
 		if(450 <= InputUtility.getMouseY() && InputUtility.getMouseY() <= 510){
 			if(200 <= InputUtility.getMouseX() && InputUtility.getMouseX() <= 295){
 				g2.fillRoundRect(200, 450, 95, 60, 30, 30);
-				System.out.println("in");
+//				System.out.println("in");
 			}
 			else if(305 <= InputUtility.getMouseX() && InputUtility.getMouseX() <= 400){
 				g2.fillRoundRect(305, 450, 95, 60, 30, 30);

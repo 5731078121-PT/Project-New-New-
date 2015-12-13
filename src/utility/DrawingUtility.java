@@ -19,6 +19,7 @@ import render.GameScreen;
 
 public class DrawingUtility {
 	public static final Font standardFont = new Font("Comic Sans MS", Font.BOLD, 30);
+	public static final Font nomalFont = new Font("Comic Sans MS", Font.BOLD, 15);
 	public static final Font smallFont = new Font("Tahoma", Font.PLAIN, 10);
 	public static boolean isMute = false;
 	
@@ -230,9 +231,10 @@ public class DrawingUtility {
 		BufferedImage sub = winLine.getSubimage(0, 0, winLine.getWidth(), winLine.getHeight()*2/3);
 		
 		g.drawImage(sub, resizeHalf, 175, 125-45/2);
-		int r = winLine.getWidth() * time/ PlayerStatus.timeMax + 1;
+		int r = winLine.getWidth() * time/ PlayerStatus.timeMax;
+		if(r < 4) r = 4;
 //		System.out.println("     "+r);
-		tran = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f);
+		tran = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1);
 		g.setComposite(tran);
 		sub = winLine.getSubimage(0, 0, r, winLine.getHeight()*2/3);
 		g.drawImage(sub, resizeHalf, 175, 125-45/2);

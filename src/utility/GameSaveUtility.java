@@ -52,7 +52,7 @@ public class GameSaveUtility {
 		}
 		
 		private static String[] defaultRecord(){
-			return new String[]{"BEE:10;100","FAAI:10;100","GOI:4;33","DA:5;10","GIZ:6;3"};
+			return new String[]{"BEE:10;100","FAAI:10;100","GOI:4;33","DA:5;25","GIZ:6;15"};
 		}
 		
 		
@@ -68,19 +68,13 @@ public class GameSaveUtility {
 	private static GameSaveRecord[] gameSaveRecord = null;
 	private static String readFileName = "statesave";
 	
-	public static void recordPlayer(String name, int state, int star){
+	public static void recordData(){
 //		already has PLAYER update STATE and STAR;
-		if(!loadPlayerData() || gameSaveRecord == null){
-			JOptionPane.showMessageDialog(new JFrame(), "Error loading statesave record *recordPlayer","Error",JOptionPane.ERROR_MESSAGE);
-			return;
-		}
-		for(int i = 0; i<gameSaveRecord.length; i++){
-			if(gameSaveRecord[i].name.equals(name)){
-				gameSaveRecord[i].state = state;
-				gameSaveRecord[i].star = star;
-				break;
-			}
-		}
+//		if(!loadPlayerData() || gameSaveRecord == null){
+//			JOptionPane.showMessageDialog(new JFrame(), "Error loading statesave record *recordPlayer","Error",JOptionPane.ERROR_MESSAGE);
+//			return;
+//		}
+//		
 		
 		try {
 	
@@ -89,9 +83,11 @@ public class GameSaveUtility {
 			String data = "";
 			for(int i = 0; i<gameSaveRecord.length; i++){
 				data += gameSaveRecord[i].getRecord();
+				System.out.println(gameSaveRecord[i].getRecord());
 				data += "\n";
 			}
 			out.write(data);
+			System.out.println("write");
 			out.close();
 		} catch (IOException e1) {
 			JOptionPane.showMessageDialog(null, "Error saving high score record", 
@@ -102,18 +98,41 @@ public class GameSaveUtility {
 	}
 	
 	public static void addPlayer(String name){
+		name = name.toUpperCase();
 		for(int i = 0; i<gameSaveRecord.length; i++){
 			if(gameSaveRecord[i].name.equals("")){
 				gameSaveRecord[i].name = name;
 				gameSaveRecord[i].star = 10;
 				gameSaveRecord[i].state = 1;
+				System.out.println("add   "+gameSaveRecord[i].name);
+				recordData();
 				return;
 			}
 		}
 	}
 	
 	public static void removePlayer(int i){
-		gameSaveRecord[i].name = null; 
+		System.out.println("remove");
+		gameSaveRecord[i].name = ""; 
+	}
+	
+	public static void updatePlayer(String name, int state, int star){
+		for(int i = 0; i<gameSaveRecord.length; i++){
+			if(gameSaveRecord[i].name.equals(name)){
+				gameSaveRecord[i].state = state;
+				gameSaveRecord[i].star = star;
+				break;
+			}
+		} 
+	}
+	
+	public static String updateData(){
+		String msg = "";
+		
+		for(GameSaveRecord record : gameSaveRecord){
+			msg += record.getRecord()+ System.getProperty("line.separator");
+		}
+		return msg;
 	}
 	
 	public static String displayPlayer(){
@@ -123,7 +142,7 @@ public class GameSaveUtility {
 			return null;
 		}
 		String msg = "";
-		int rank = 1;
+		
 		for(GameSaveRecord record : gameSaveRecord){
 			msg += record.getRecord()+ System.getProperty("line.separator");
 		}

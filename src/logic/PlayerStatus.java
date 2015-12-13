@@ -69,6 +69,11 @@ public class PlayerStatus implements IRenderable{
 		g.drawString(Integer.toString(money), 83, 108);
 		Rectangle2D rec = g.getFontMetrics().getStringBounds(name, g);
 		g.drawString(name, (int) (50 + 75/2 - rec.getWidth()/2), 70);
+		String state = "STATE : "+this.state;
+		g.setFont(DrawingUtility.nomalFont);
+		rec = g.getFontMetrics().getStringBounds( state, g);
+		g.drawString(state, (int) (50 + 75/2 - rec.getWidth()/2), 150);
+		
 		g.setFont(DrawingUtility.smallFont);
 	}
 	
