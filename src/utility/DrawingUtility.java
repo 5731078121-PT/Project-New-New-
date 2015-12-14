@@ -180,7 +180,7 @@ public class DrawingUtility {
 	}
 	
 	public static void drawPauseScreen(Graphics2D g){
-		AlphaComposite tran = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.7f);
+		AlphaComposite tran = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.6f);
 		g.setComposite(tran);
 		
 		g.setColor(Color.white);
@@ -364,6 +364,13 @@ public class DrawingUtility {
 		g.drawImage(introGame, null, 0, 0);
 		
 		g.drawImage(back, resizeHalf, 50, 620);
+	}
+	
+	public static void drawLockDuck(Graphics2D g, int y, int stage){
+		AlphaComposite tran = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f);
+		g.setComposite(tran);
+		g.setColor(Color.black);
+		g.fillRoundRect(50, y+1, 75, 75-2, 20, 20);
 	}
 	
 }

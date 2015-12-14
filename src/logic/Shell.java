@@ -11,7 +11,8 @@ import utility.DrawingUtility;
 public class Shell implements IRenderable {
 	private float hpMax = 1500;
 	private int price = 2;
-
+	private int coolDown = 50;
+	
 	public int x,y,z,hp;
 	private int defaultX = 50, defaultY = 275+150+75/2;
 	private boolean canBuy;
@@ -20,6 +21,7 @@ public class Shell implements IRenderable {
 	private AlphaComposite tran;
 	private int i , count;
 	public int column = -1;
+	private int coolDownCounter;
 	
 	public Shell(int x, int y) {
 		// TODO Auto-generated constructor stub
@@ -38,9 +40,13 @@ public class Shell implements IRenderable {
 	@Override
 	public void draw(Graphics2D g) {
 		// TODO Auto-generated method stub
-		g.drawString(Integer.toString(column), x, y);
-		g.drawString(Integer.toString(hp), x, y+10);
-		tran = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float) (hp/hpMax));
+//		g.drawString(Integer.toString(column), x, y);
+//		g.drawString(Integer.toString(hp), x, y+10);
+		if(coolDown > coolDownCounter){
+			coolDownCounter++;
+			tran = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float) coolDownCounter/coolDown);
+			
+		}else tran = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float) hp/hpMax);
 		g.setComposite(tran);
 		if(!dead)
 			DrawingUtility.drawShell(g, x, y, i);
@@ -73,6 +79,7 @@ public class Shell implements IRenderable {
 		if(!canBuy) getShell();
 		if(canBuy && !bought){
 			if(InputUtility.isMouseLeftDown()){
+				InputUtility.setMouseLeftDownTrigger(false);
 				this.x = InputUtility.getMouseX()-75/2;
 				this.y = InputUtility.getMouseY()-75/2;
 				this.z = Integer.MAX_VALUE;

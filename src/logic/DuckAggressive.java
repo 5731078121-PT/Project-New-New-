@@ -19,10 +19,11 @@ public class DuckAggressive extends Duck{
 		this.hp = (int) this.hpMax;
 		this.eggDelay = 0;
 		this.eggDelayCounter = this.eggDelay;
-		this.isJig = true;
+		this.isJig = false;
 		this.defaultX = 50;
 		this.defaultY = 275 + 75/2;
 		this.price = 6;
+		this.stageLock = 5;
 	}
 	
 	public void update(){
@@ -31,6 +32,7 @@ public class DuckAggressive extends Duck{
 			if(!canBuy) getDuck();
 			if(canBuy && !bought){
 				if(InputUtility.isMouseLeftDown()){
+					InputUtility.setMouseLeftDownTrigger(false);
 					this.x = InputUtility.getMouseX()-75/2;
 					this.y = InputUtility.getMouseY()-75/2;
 					this.z = Integer.MAX_VALUE;
@@ -78,12 +80,16 @@ public class DuckAggressive extends Duck{
 	public void draw(Graphics2D g) {
 		// TODO Auto-generated method stub
 		
-		tran = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float) hp/hpMax);
+		if(coolDown > coolDownCounter){
+			coolDownCounter++;
+			tran = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float) coolDownCounter/coolDown);
+			
+		}else tran = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float) hp/hpMax);
 		g.setComposite(tran);
 		
 		DrawingUtility.drawAggresDuck(g, x, y, i);
-		g.drawString(Integer.toString(column), x, y);
-		g.drawString(Integer.toString(hp), x, y+10);
+//		g.drawString(Integer.toString(column), x, y);
+//		g.drawString(Integer.toString(hp), x, y+10);
 		
 		if(GameLogic.playerStatus.isPause() || GameLogic.playerStatus.isEnd) return;
 		if(bought){
@@ -104,6 +110,10 @@ public class DuckAggressive extends Duck{
 				}else count++;
 				if(i == 9) i = 1;				
 			}
+		}
+		if(!(GameLogic.playerStatus.getState()>this.stageLock)){
+			DrawingUtility.drawLockDuck(g, defaultY, stageLock);
+			
 		}
 		
 				

@@ -8,6 +8,7 @@ import logic.GameLogic;
 import logic.PlayerStatus;
 import logic.RandomUtility;
 import main.Main;
+import utility.AudioUtility;
 import utility.DrawingUtility;
 import utility.GameSaveUtility;
 
@@ -30,14 +31,17 @@ public class GameScreen extends JComponent {
 	
 	public GameScreen() {
 		// TODO Auto-generated constructor stub
+		InputUtility.setMouseLeftDown(false);
 		this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		DrawingUtility.createBg();
 		ranBg = RandomUtility.random(0, 6);
+		requestFocus();
 		addMouseListener(new MouseListener() {
 			
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				// TODO Auto-generated method stub
+					
 					if(e.getButton() == 1){
 						if(InputUtility.isMouseLeftDown()){
 							InputUtility.setMouseLeftDownUp(true);
@@ -58,7 +62,7 @@ public class GameScreen extends JComponent {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				// TODO Auto-generated method stub
-//				System.out.println("mouse press");
+				
 				if(e.getButton() == 1){
 					if(InputUtility.isMouseRightClickUp()){
 						InputUtility.setMouseRightClickUp(false);
@@ -70,12 +74,14 @@ public class GameScreen extends JComponent {
 						
 						return;
 					}
-					
-					if(!InputUtility.isMouseLeftDown()){
-						InputUtility.setMouseLeftDownTrigger(true);
-					}else{
+				
+					if(InputUtility.isMouseLeftDown()){
 						InputUtility.setMouseLeftDownTrigger(false);
+				
+					}else{
+						InputUtility.setMouseLeftDownTrigger(true);
 					}
+				
 					InputUtility.setMouseLeftDown(true);
 					
 					if(InputUtility.isMouseOnScreen()){
@@ -102,16 +108,13 @@ public class GameScreen extends JComponent {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				// TODO Auto-generated method stub
-//				if(e.getButton() == 1){
-//					if(!InputUtility.isMouseLeftDown()){
-//						InputUtility.setMouseLeftDownTrigger(true);
-//					}else{
-//						InputUtility.setMouseLeftDownTrigger(false);
-//					}
-//					InputUtility.setMouseLeftDown(true);
-//					InputUtility.setMouseLeftDownUp(false);
-//					
-//				}
+			
+				if(e.getButton() == 1){
+					InputUtility.setMouseLeftDownTrigger(false);
+					InputUtility.setMouseLeftDown(false);
+					InputUtility.setMouseLeftDownUp(false);
+					
+				}
 			}
 		});
 		addMouseMotionListener(new MouseMotionListener() {
@@ -133,8 +136,7 @@ public class GameScreen extends JComponent {
 			}
 		});
 		
-		requestFocus();
-		setDoubleBuffered(true);
+//		setDoubleBuffered(true);
 		
 	}
 	
@@ -184,20 +186,20 @@ public class GameScreen extends JComponent {
 			RenderableHolder.clear();
 			if(GameLogic.playerStatus.isPause()) return;
 			if(GameLogic.playerStatus.isWin){
-//				WIN SCREEN
+//WIN SCREEN
 				GameSaveUtility.updatePlayer(GameLogic.playerStatus.getName(), GameLogic.playerStatus.getState(), GameLogic.playerStatus.getMoney());
 				GameSaveUtility.recordData();
 				DrawingUtility.drawWinScreen(g2);
 //				g2.fillRect(375/2, 475/2 + 50, 100, 100);
 				if(InputUtility.getMouseY() >= 475/2 + 50 && InputUtility.getMouseY() <= 475/2 + 150 ){
-//					back to HOME
+//	back to HOME
 					if(InputUtility.getMouseX() >= 375/2 && InputUtility.getMouseX() <= 375/2 + 100){
 						GameLogic.playerStatus.isEnd = true;
 						System.out.println("in");
 						Main.titleScene();
 						
 					}
-//					NEXT STAGE
+//	NEXT STAGE
 					else if(InputUtility.getMouseX() >= 375/2 + 125 && InputUtility.getMouseX() <= 375/2 +205){
 //						new player up STAGE and STAR
 						GameLogic.playerStatus = new PlayerStatus(GameLogic.playerStatus.getName(), GameLogic.playerStatus.getState()+1, GameLogic.playerStatus.getMoney()+10);
@@ -205,36 +207,44 @@ public class GameScreen extends JComponent {
 					}
 				}
 			}else {
-//			LOSE SCREEN
+//LOSE SCREEN
 				DrawingUtility.drawLoseScreen(g2,GameLogic.playerStatus.getTime() == 0);
 				if(InputUtility.getMouseY() >= 475/2 + 50 && InputUtility.getMouseY() <= 475/2 + 150 ){
-//					back to HOME
+//		back to HOME
 					if(InputUtility.getMouseX() >= 375/2 && InputUtility.getMouseX() <= 375/2 + 100){
 						GameLogic.playerStatus.isEnd = true;
 						Main.titleScene();
 					}
-//					PLAY AGAIN
+//		PLAY AGAIN
 					if(InputUtility.getMouseX() >= 375/2 + 105 && InputUtility.getMouseX() <= 375/2 +205){
-//						new player up STAGE and STAR
-						GameLogic.playerStatus = new PlayerStatus(GameLogic.playerStatus.getName(), GameLogic.playerStatus.getState(), GameLogic.playerStatus.getMoney());
+//				new player up STAGE and STAR
+						RenderableHolder.clear();
+						int i = Main.gameBegin.getIndex();
+						GameLogic.playerStatus = new PlayerStatus(Main.gameBegin.getName(i), Main.gameBegin.getState(i), Main.gameBegin.getStar(i));  
 						Main.runGame();
 					}
 				}
 			}
 			
 		}else if(GameLogic.playerStatus.isPause() ){
-//			PAUSE SCREEN
+//PAUSE SCREEN
 			DrawingUtility.drawPauseScreen(g2);
 			if(InputUtility.isMouseLeftDownTrigger()){
+				InputUtility.setMouseLeftDownTrigger(false);
 				if(InputUtility.getMouseY() >= 475/2+125 && InputUtility.getMouseY() <= 475/2+225){
-//					back to HOME
+//		back to HOME
 					if(InputUtility.getMouseX() >= 375/2 && InputUtility.getMouseX() <= 375/2+100){
 						GameLogic.playerStatus.isEnd = true;
 						Main.titleScene();
 					}
-//					sound
+//		sound
 					if(InputUtility.getMouseX() >= 125+375/2 && InputUtility.getMouseX() <= 225+375/2){
 						DrawingUtility.isMute = !DrawingUtility.isMute;
+						if(!DrawingUtility.isMute){
+							synchronized (AudioUtility.bgm) {
+								AudioUtility.bgm.notifyAll();
+							}
+						}
 					}
 					
 				}
@@ -249,13 +259,16 @@ public class GameScreen extends JComponent {
 						int star = GameLogic.playerStatus.getMoney();
 						RenderableHolder.clear();
 						GameLogic.playerStatus.setPause(false);
-						GameLogic.playerStatus = new PlayerStatus(name, state, star);
+						int i = Main.gameBegin.getIndex();
+						GameLogic.playerStatus = new PlayerStatus(Main.gameBegin.getName(i), Main.gameBegin.getState(i), Main.gameBegin.getStar(i));
 						Main.runGame();
 						
 					}
 				}
 			}
 		}
+	
+//		System.out.println("   down "+InputUtility.isMouseLeftDown()+"   trigger " + InputUtility.isMouseLeftDownTrigger());
 		
 	}
 	

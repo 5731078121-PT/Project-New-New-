@@ -6,6 +6,8 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import input.InputUtility;
+
 public class GameWindow extends JFrame{
 	private JComponent currentScene;
 	
@@ -24,6 +26,9 @@ public class GameWindow extends JFrame{
 	public void switchScene(JComponent scene){
 		getContentPane().remove(currentScene);
 		this.currentScene = scene;
+		InputUtility.setMouseLeftDown(false);
+		InputUtility.setMouseLeftDownTrigger(false);
+		InputUtility.setMouseLeftDownUp(false);
 		getContentPane().add(currentScene);
 		getContentPane().validate();
 		pack();

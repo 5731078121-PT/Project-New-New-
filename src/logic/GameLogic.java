@@ -34,9 +34,10 @@ public class GameLogic {
 	public static boolean newAggressiveDuck;
 	public static boolean newFrozenDuck;
 	public static int[][] dragonInState;
-	private final int STATE_MAX = 10;
+	private final int STAGE_MAX = 10;
 	private int smallDragonTime = 2  , smallDragonCount;
 	private boolean releaseSmallDragon;
+	private int currentStage ;
 	
 
 	public GameLogic() {
@@ -50,8 +51,10 @@ public class GameLogic {
 		createAggressiveDuck();
 		createFrozenDuck();
 		createShell();
+		currentStage = GameLogic.playerStatus.getState();
+		if(currentStage > 11) currentStage = 11; 
 		
-		dragonInState = new int[STATE_MAX][10];
+		dragonInState = new int[STAGE_MAX+1][10];
 //		gen DRAGON = 0;
 //		gen SUPER DRAGON = 1
 		for(int i = 1; i<7; i++){
@@ -59,19 +62,24 @@ public class GameLogic {
 				dragonInState[i][j] = 1;
 			}
 		}
-		for(int i=7; i<STATE_MAX; i++){
+		for(int i=7; i<STAGE_MAX; i++){
 			for(int j = 1; j<10; j++){
 				dragonInState[i][j] = 1;
 			}
 		}
 //		gen SMALL DRAGON = 2
-		for(int i = 3; i<STATE_MAX; i++){
+		for(int i = 3; i<STAGE_MAX; i++){
 			dragonInState[i][9] = 2;
 		}
-		for(int i = 7; i<STATE_MAX; i++){
+		for(int i = 7; i<STAGE_MAX; i++){
 			dragonInState[i][8] = 2;
 		}
 		dragonInState[9][7] = 3;
+		
+//		for STAGE > 10
+		for(int i = 0; i<10; i++){
+			dragonInState[10][i] = RandomUtility.random(1, 2);
+		}
 		
 		
 		releaseDragonDelay = RandomUtility.random(100, 120);
@@ -129,11 +137,11 @@ public class GameLogic {
 //				int ran = 9;
 				int i = RandomUtility.random(1, 5);
 //				int i = 1;
-				if(dragonInState[playerStatus.getState()-1][ran] == 0){
+				if(dragonInState[currentStage -1][ran] == 0){
 					RenderableHolder.getInstance().add(new Dragon(175+i*75));					
-				}else if(dragonInState[playerStatus.getState()-1][ran] == 1){
+				}else if(dragonInState[currentStage -1][ran] == 1){
 					RenderableHolder.getInstance().add(new DragonSuper(175+i*75));					
-				}else if(dragonInState[playerStatus.getState()-1][ran] == 2){
+				}else if(dragonInState[currentStage -1][ran] == 2){
 					releaseSmallDragon = true;
 					RenderableHolder.getInstance().add(new DragonSmall(175+1*75));
 					RenderableHolder.getInstance().add(new DragonSmall(175+2*75));

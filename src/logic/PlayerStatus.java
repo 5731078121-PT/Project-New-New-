@@ -16,17 +16,17 @@ public class PlayerStatus implements IRenderable{
 	private int stopTime = 50*10;
 	private int money;
 
-	private int state;
+	private int stage;
 	private String name;
 	private boolean isPause;
 	public boolean isEnd;
 	public boolean isWin;
 	
-	public PlayerStatus(String name, int state, int money) {
+	public PlayerStatus(String name, int stage, int money) {
 		// TODO Auto-generated constructor stub
 		this.name = name;
 		this.money = money;
-		this.state = state;
+		this.stage = stage;
 		this.time = this.timeMax;
 	}
 //	public PlayerStatus() {
@@ -58,18 +58,21 @@ public class PlayerStatus implements IRenderable{
 		AlphaComposite tran = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f);
 		g.setComposite(tran);
 		g.setColor(new Color(153, 43, 181));
-		g.fillRoundRect(30, 30, 115, 85, 30, 30);
+
+		g.setFont(DrawingUtility.standardFont);
+		Rectangle2D rec = g.getFontMetrics().getStringBounds(name, g);
+		if(rec.getWidth()+30 > 115 ) g.fillRoundRect((int) (50 + 75/2 - rec.getWidth()/2-15), 30, (int) (rec.getWidth()+30), 85, 30, 30);
+		else g.fillRoundRect(30, 30, 115, 85, 30, 30);
 		
 		tran = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1);
 		g.setComposite(tran);
 		
+		
 		g.setColor(Color.white);
 		DrawingUtility.drawStar(g, 50, 80, 0);
-		g.setFont(DrawingUtility.standardFont);
 		g.drawString(Integer.toString(money), 83, 108);
-		Rectangle2D rec = g.getFontMetrics().getStringBounds(name, g);
 		g.drawString(name, (int) (50 + 75/2 - rec.getWidth()/2), 70);
-		String state = "STATE : "+this.state;
+		String state = "STAGE : "+this.stage;
 		g.setFont(DrawingUtility.nomalFont);
 		rec = g.getFontMetrics().getStringBounds( state, g);
 		g.drawString(state, (int) (50 + 75/2 - rec.getWidth()/2), 150);
@@ -133,11 +136,11 @@ public class PlayerStatus implements IRenderable{
 	}
 	
 	public int getState() {
-		return state;
+		return stage;
 	}
 	
 	public void setState(int state) {
-		this.state = state;
+		this.stage = state;
 	}
 	
 	public String getName() {

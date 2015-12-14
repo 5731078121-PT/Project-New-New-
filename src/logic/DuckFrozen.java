@@ -14,6 +14,7 @@ public class DuckFrozen extends Duck{
 		super(x, y);
 		// TODO Auto-generated constructor stub
 		this.price = 7;
+		this.stageLock = 6;
 		this.defaultX = 50;
 		this.defaultY = 275+75+75/2;
 	}
@@ -21,6 +22,7 @@ public class DuckFrozen extends Duck{
 		if(!canBuy) getDuck();
 		if(canBuy && !bought){
 			if(InputUtility.isMouseLeftDown()){
+				InputUtility.setMouseLeftDownTrigger(false);
 				this.x = InputUtility.getMouseX()-75/2;
 				this.y = InputUtility.getMouseY()-75/2;
 				
@@ -63,12 +65,16 @@ public class DuckFrozen extends Duck{
 	@Override
 	public void draw(Graphics2D g) {
 		// TODO Auto-generated method stub
-		tran = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float) (hp/hpMax));
+		if(coolDown > coolDownCounter){
+			coolDownCounter++;
+			tran = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float) coolDownCounter/coolDown);
+			
+		}else tran = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float) hp/hpMax);
 		g.setComposite(tran);
 		
 		DrawingUtility.drawFrozenDuck(g, x, y, i);
-		g.drawString(Integer.toString(column), x, y);
-		g.drawString(Integer.toString(hp), x, y+10);
+//		g.drawString(Integer.toString(column), x, y);
+//		g.drawString(Integer.toString(hp), x, y+10);
 		if(GameLogic.playerStatus.isPause() || GameLogic.playerStatus.isEnd) return;
 		if(bought){
 			
@@ -77,6 +83,10 @@ public class DuckFrozen extends Duck{
 				count = 0;
 			}else count++;
 			if(i == 9) i = 1;
+		}
+		if(!(GameLogic.playerStatus.getState()>this.stageLock)){
+			DrawingUtility.drawLockDuck(g, defaultY, stageLock);
+			
 		}
 	}
 

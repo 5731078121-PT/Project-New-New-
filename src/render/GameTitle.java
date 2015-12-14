@@ -35,12 +35,7 @@ public class GameTitle extends JPanel{
 	public GameTitle() {
 		// TODO Auto-generated constructor stub
 		this.setPreferredSize(new Dimension(GameScreen.WIDTH, GameScreen.HEIGHT));
-//		JButton start = new JButton("START GAME!");
-//		this.setBackground(Color.black);
-//		this.add(start, BorderLayout.WEST);
-//				
-//		JProgressBar progress = new JProgressBar();
-//		this.add(progress);
+
 		index = 0;
 		indexBG = 0;
 		count = 0;
@@ -64,6 +59,7 @@ public class GameTitle extends JPanel{
 				if(e.getX() >= 10 && e.getX() <= 10+125/3){
 					if(e.getY() >= 650 && e.getY() <= 650+125/3) {
 						if(!DrawingUtility.isMute) AudioUtility.universalSound.play();
+						
 					}
 				}
 				
@@ -83,7 +79,7 @@ public class GameTitle extends JPanel{
 			@Override
 			public void mouseDragged(MouseEvent arg0) {};
 		});
-		//start.setVisible(false);
+
 		
 		this.setVisible(true);
 	}
@@ -94,22 +90,17 @@ public class GameTitle extends JPanel{
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
 		g.clearRect(0, 0, GameScreen.WIDTH, GameScreen.HEIGHT);
-//		AlphaComposite tran = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1);
-//		g2.setComposite(tran);
-//		g2.setColor(Color.black);
-//		g2.fillRect(0, 0, GameScreen.WIDTH, GameScreen.HEIGHT);
-		
 		
 		if(index == 24) {
 			index = 0;
 			indexBG++;
-			System.out.println(indexBG);
+
 			if(indexBG >= 3) indexBG = 0;
 		}
 		
 		DrawingUtility.drawGameTitle(g2,indexBG, index, count);
-		System.out.println(InputUtility.getMouseX()+"   "+InputUtility.getMouseY());
 		
+//		start but
 		if(InputUtility.getMouseX() >= 125 && InputUtility.getMouseX() <= 360){
 			if(InputUtility.getMouseY() >= 565 && InputUtility.getMouseY() <= 640) {
 				
@@ -121,14 +112,7 @@ public class GameTitle extends JPanel{
 
 			}
 		}
-		if(InputUtility.getMouseX() >= 10 && InputUtility.getMouseX() <= 10+125/3){
-			if(InputUtility.getMouseY() >= 650 && InputUtility.getMouseY() <= 650+125/3) {
-				g2.setColor(Color.WHITE);
-				AlphaComposite tran = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f);
-				g2.setComposite(tran);
-				g2.fillOval(10, 650, 125/3, 125/3);
-			}
-		}
+
 
 		if(count == 24) count = 0;
 		if(count%2 == 0) index++;

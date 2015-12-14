@@ -31,6 +31,22 @@ public class GameBegin extends JComponent {
 	private int mouseClickX  = -1, mouseClickY = -1;
 	private boolean isIntroGame = false;
 	
+	public String getName(int index) {
+		return name[index];
+	}
+
+	public int getState(int index) {
+		return state[index];
+	}
+
+	public int getStar(int index) {
+		return star[index];
+	}
+
+	public int getIndex() {
+		return index;
+	}
+
 	public GameBegin() {
 		// TODO Auto-generated constructor stub
 		this.setPreferredSize(new Dimension(GameScreen.WIDTH, GameScreen.HEIGHT));
@@ -50,6 +66,7 @@ public class GameBegin extends JComponent {
 			public void mouseClicked(MouseEvent e) {
 				// TODO Auto-generated method stub
 				super.mouseClicked(e);
+//				System.out.println("click");
 				if(e.getButton() == 1){
 					if(isIntroGame) {
 						if(620 <= e.getY() && e.getY() <= 645){
@@ -70,6 +87,7 @@ public class GameBegin extends JComponent {
 								if(!DrawingUtility.isMute) AudioUtility.universalSound.play();
 								GameLogic.playerStatus = new PlayerStatus(name[index], state[index], star[index]);
 								GameSaveUtility.recordData();
+								InputUtility.setMouseLeftDown(false);
 								Main.runGame();
 							}
 

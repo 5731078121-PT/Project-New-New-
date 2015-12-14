@@ -13,6 +13,7 @@ import utility.DrawingUtility;
 public class Duck implements IRenderable{
 	protected float hpMax = 500;
 	protected int price = 4;
+	protected int coolDown = 70;
 
 	protected int defaultX = 50, defaultY = 125+75/2;
 	protected int x;
@@ -27,6 +28,8 @@ public class Duck implements IRenderable{
 	protected AlphaComposite tran;
 	protected int i=0, count = 0;;
 	public int column= -1;
+	protected int coolDownCounter;
+	protected int stageLock=0;
 	
 	public Duck(int x, int y) {
 		// TODO Auto-generated constructor stub
@@ -45,6 +48,7 @@ public class Duck implements IRenderable{
 			if(!canBuy) getDuck();
 			if(canBuy && !bought){
 				if(InputUtility.isMouseLeftDown()){
+					InputUtility.setMouseLeftDownTrigger(false);
 					this.x = InputUtility.getMouseX()-75/2;
 					this.y = InputUtility.getMouseY()-75/2;
 					this.z = Integer.MAX_VALUE;
@@ -92,8 +96,8 @@ public class Duck implements IRenderable{
 	}
 
 	public void getDuck(){
-
-		if(InputUtility.isMouseLeftDownTrigger() && GameLogic.playerStatus.getMoney()>=this.price){
+		if(coolDown != coolDownCounter) return;
+		if(InputUtility.isMouseLeftDownTrigger() && GameLogic.playerStatus.getMoney()>=this.price && GameLogic.playerStatus.getState()>this.stageLock){
 //			GameLogic.newDuck = false;
 			if(defaultX <= InputUtility.getMouseX() && defaultX+75 >= InputUtility.getMouseX()){
 			
@@ -109,13 +113,17 @@ public class Duck implements IRenderable{
 	@Override
 	public void draw(Graphics2D g) {
 		// TODO Auto-generated method stub
-		
-		tran = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float) hp/hpMax);
+		if(coolDown > coolDownCounter){
+			coolDownCounter++;
+			tran = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float) coolDownCounter/coolDown);
+			
+		}else tran = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float) hp/hpMax);
 		g.setComposite(tran);
 		
 		DrawingUtility.drawDuck(g, x, y, i);
-		g.drawString(Integer.toString(column), x, y);
-		g.drawString(Integer.toString(hp), x, y+10);
+//		g.drawString(Integer.toString(column), x, y);
+//		g.drawString(Integer.toString(hp), x, y+10);
+		
 		
 		if(GameLogic.playerStatus.isPause() || GameLogic.playerStatus.isEnd) return;
 		if(bought){
@@ -125,6 +133,11 @@ public class Duck implements IRenderable{
 				count = 0;
 			}else count++;
 			if(i == 9) i = 3;
+		}
+		
+		if(!(GameLogic.playerStatus.getState()>this.stageLock)){
+			DrawingUtility.drawLockDuck(g, defaultY, stageLock);
+			
 		}
 		
 				
