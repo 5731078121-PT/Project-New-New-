@@ -32,8 +32,8 @@ public class Main {
 			if(gameWindow.getCurrentScene() instanceof GameScreen){
 				 gameLogic.logicUpdate();
 			}
-			if(nextScene != null){
-				
+			if(nextScene != null){				
+				gameWindow.getCurrentScene().removeAll();
 				gameWindow.switchScene(nextScene);
 				nextScene = null;
 			}

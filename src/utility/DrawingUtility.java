@@ -35,7 +35,7 @@ public class DrawingUtility {
 
 	public static BufferedImage duckPic = getImage("res/img/duck-all-new3.png");
 	public static BufferedImage superDuckPic = getImage("res/img/superDuck-all-new3.png");
-	public static BufferedImage aggrasDuckPic = getImage("res/img/aggresDuck-all-jig.png");
+	public static BufferedImage aggresDuckPic = getImage("res/img/aggresDuck-all-jig.png");
 	public static BufferedImage frozenDuckPic = getImage("res/img/frozenDuck-all.png");
 	public static BufferedImage star = getImage("res/img/star-all.png");
 	public static BufferedImage dragon = getImage("res/img/toothless-all-new.png");
@@ -52,11 +52,16 @@ public class DrawingUtility {
 	public static BufferedImage play = getImage("res/img/play-but.png");
 	public static BufferedImage sound = getImage("res/img/sound-but-all.png");
 	public static BufferedImage replay = getImage("res/img/replay-but.png");
+	public static BufferedImage bin = getImage("res/img/bin-but.png");
+	public static BufferedImage back = getImage("res/img/back-but.png");
+	public static BufferedImage backCover = getImage("res/img/back-but-cover.png");
 	public static BufferedImage winLine = getImage("res/img/winLine.png");
 	public static BufferedImage gameName = getImage("res/img/GameName.png");
+	public static BufferedImage introGame = getImage("res/img/introGame.png");
 	public static BufferedImage[] bg = new BufferedImage[7];
 	
-	public static BufferedImage[] startBG = new BufferedImage[3];
+	public static BufferedImage[] startBG = new BufferedImage[4];
+	public static BufferedImage startInfoBut = getImage("res/img/info-but1.png");
 	public static BufferedImage startDragon = getImage("res/img/start-dragon-all.png");
 	public static BufferedImage startButton = getImage("res/img/start-but-all.png");
 	public static BufferedImage startButtonCover = getImage("res/img/start-but-all-cover.png");
@@ -68,6 +73,7 @@ public class DrawingUtility {
 		startBG[0] = getImage("res/img/start-bg.png");
 		startBG[1] = getImage("res/img/start-bg2.png");
 		startBG[2] = getImage("res/img/start-bg3.png");
+		startBG[3] = getImage("res/img/start-bg.png");
 	}
 	
 	public static void createBg(){
@@ -92,18 +98,11 @@ public class DrawingUtility {
 	public static final AffineTransformOp resizeHalf = new AffineTransformOp(AffineTransform.getScaleInstance(0.5,0.5), AffineTransformOp.TYPE_BICUBIC);
 	public static final AffineTransformOp resizeTwoFive = new AffineTransformOp(AffineTransform.getScaleInstance(0.4,0.4), AffineTransformOp.TYPE_BICUBIC);
 	
-	protected static BufferedImage waveAnim;
-	
-	public static BufferedImage getWaveAnim(){
-		return waveAnim;
-	}
-	
 	public static void drawBg(Graphics2D g, int i){
 		g.drawImage(bg[i], resizeBg, 0, 0);
 	}
 	
 	public static void drawDuck(Graphics2D g, int x, int y, int duckCount){
-		/* fill code */
 		BufferedImage duckUse = duckPic.getSubimage(duckCount*200, 0, 200, 200);
 		g.drawImage(duckUse, resizeDuck, x, y);
 		
@@ -115,7 +114,7 @@ public class DrawingUtility {
 	}
 	
 	public static void drawAggresDuck(Graphics2D g, int x, int y, int i){
-		BufferedImage duckUse = aggrasDuckPic.getSubimage(i*200, 0, 200, 200);
+		BufferedImage duckUse = aggresDuckPic.getSubimage(i*200, 0, 200, 200);
 		g.drawImage(duckUse, resizeDuck, x, y);
 	}
 	
@@ -204,7 +203,7 @@ public class DrawingUtility {
 		
 	}
 	
-	public static void drawLoseScreen(Graphics2D g){
+	public static void drawLoseScreen(Graphics2D g, boolean timesUpLose){
 		AlphaComposite tran = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.7f);
 		g.setComposite(tran);
 		
@@ -215,8 +214,19 @@ public class DrawingUtility {
 		
 		g.setColor(Color.white);
 		g.setFont(standardFont);
+
 		Rectangle2D rec = g.getFontMetrics().getStringBounds("YOU LOSE!", g);
-		g.drawString("YOU LOSE!", (int) (GameScreen.WIDTH/2 - rec.getWidth()/2),475/2 + 25);
+		g.drawString("YOU LOSE!", (int) (GameScreen.WIDTH/2 - rec.getWidth()/2),475/2+25);
+		
+		if(timesUpLose){
+			rec = g.getFontMetrics().getStringBounds("TIME'S UP", g);
+			g.drawString("TIME'S UP", (int) (GameScreen.WIDTH/2 - rec.getWidth()/2),475/2-25);
+		}
+		else{
+			rec = g.getFontMetrics().getStringBounds("DRAGON REACHED GOAL", g);
+			g.drawString("DRAGON REACHED GOAL", (int) (GameScreen.WIDTH/2 - rec.getWidth()/2),475/2-25);
+		}
+		
 		g.setFont(smallFont);
 	
 		g.drawImage(home, resizeHalf, 375/2, 475/2+50);
@@ -261,23 +271,98 @@ public class DrawingUtility {
 		g.drawImage(sub, resizeHalf, 175, 125-45/2);
 	}
 	
-	public static void drawGameTitle(Graphics2D g, int i, int ibut, boolean isStarted){
+	public static void drawGameTitle(Graphics2D g,int iBG, int i, int ibut){
+		
+		g.clearRect(0, 0, GameScreen.WIDTH, GameScreen.HEIGHT);
 		
 		createStartBg();
-		g.drawImage(startBG[0], null, 0, 0);
 		
-		BufferedImage startDragonUse = startDragon.getSubimage((i%8)*600, 0, 600, 700);
+		AlphaComposite tran = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1-i*0.04f);
+		g.setComposite(tran);
+		g.drawImage(startBG[iBG], null, 0, 0);
+		tran = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, i*0.04f);
+		g.setComposite(tran);
+		g.drawImage(startBG[iBG+1], null, 0, 0);
+		
+		
+		tran = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1);
+		g.setComposite(tran);
+		
+		BufferedImage startDragonUse = startDragon.getSubimage((ibut%8)*600, 0, 600, 700);
 		g.drawImage(startDragonUse, null, 0, 0);
 		
 		BufferedImage startNameUse = startName.getSubimage((i%2)*600, 0, 600, 700);
 		g.drawImage(startNameUse, null, 0, 0);
 		
-		BufferedImage startDuckUse = startDuck.getSubimage(((i/2)%12)*600, 0, 600, 700);
+		BufferedImage startDuckUse = startDuck.getSubimage((i%12)*600, 0, 600, 700);
 		g.drawImage(startDuckUse, null, 0, 0);
+		
+/*		if(ibut == 22){
+			g.drawImage(frozenDuckPic.getSubimage(200, 0, 200, 200), resizeDuck, 575-0*25+300, 50);
+		}
+		
+		else if(ibut == 23){
+			g.drawImage(aggresDuckPic.getSubimage(200, 0, 200, 200), resizeDuck, 575-0*25+200, 50);
+			g.drawImage(frozenDuckPic.getSubimage(200, 0, 200, 200), resizeDuck, 575-1*25+300, 50);
+		}
+		
+		else if(ibut == 24){
+			g.drawImage(superDuckPic.getSubimage(200, 0, 200, 200), resizeDuck, 575-0*25+100, 50);
+			g.drawImage(aggresDuckPic.getSubimage(200, 0, 200, 200), resizeDuck, 575-1*25+200, 50);
+			g.drawImage(frozenDuckPic.getSubimage(200, 0, 200, 200), resizeDuck, 575-2*25+300, 50);
+		}
+		
+		g.drawImage(duckPic.getSubimage(200, 0, 200, 200), resizeDuck, 575-ibut*25, 50);
+		g.drawImage(superDuckPic.getSubimage(200, 0, 200, 200), resizeDuck, 575-(ibut+1)*25+100, 50);
+		g.drawImage(aggresDuckPic.getSubimage(200, 0, 200, 200), resizeDuck, 575-(ibut+2)*25+200, 50);
+		g.drawImage(frozenDuckPic.getSubimage(200, 0, 200, 200), resizeDuck, 575-(ibut+3)*25+300, 50);*/
+		
 		
 		BufferedImage startButtonUse = startButton.getSubimage((ibut%4)*600, 0, 600, 700);
 		g.drawImage(startButtonUse, null, 0, 0);
 		
+		
+		tran = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.9f);
+		g.setComposite(tran);
+		
+		g.drawImage(startInfoBut, resizeBg, 10, 650);
+	}
+	
+	public static void drawGameBegin(Graphics2D g){
+		
+		g.clearRect(0, 0, GameScreen.WIDTH, GameScreen.HEIGHT);
+		
+		AlphaComposite tran = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.7f);
+		g.setComposite(tran);
+		g.drawImage(startBG[2], null, 0, 0);
+		
+		g.setColor(Color.white);
+		
+		tran = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1);
+		g.setComposite(tran);
+		
+		g.setFont(standardFont);
+		Rectangle2D rec = g.getFontMetrics().getStringBounds("CHOOSE PLAYER", g);
+		g.drawString("CHOOSE PLAYER", (int) (GameScreen.WIDTH/2 - rec.getWidth()/2),100);
+		g.setFont(smallFont);
+		
+		g.drawImage(bin, resizeHalf, 375/2, 475);
+		g.drawImage(play, resizeHalf, 125+375/2, 475);
+		
+		tran = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.9f);
+		g.setComposite(tran);
+		
+		g.drawImage(back, resizeBg, 10, 650);
+		g.fillRect(590-125/3, 650, 125/3, 125/3);
+	}
+	
+	public static void drawIntroGame(Graphics2D g){
+		
+		AlphaComposite tran = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.92f);
+		g.setComposite(tran);
+		g.drawImage(introGame, null, 0, 0);
+		
+		g.drawImage(back, resizeHalf, 50, 620);
 	}
 	
 }

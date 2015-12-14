@@ -1,13 +1,5 @@
-<<<<<<< HEAD
-FAAI:1;10
-FAAI2:1;10
-:0;0
-:0;0
-:0;0
-=======
-BEE:10;100
 FAAI:10;100
-DA:5;10
-GGG:1;10
-PAPA:1;10
->>>>>>> origin/master
+PLOY:5;50
+PRAE:3;30
+MOOK:1;10
+PLAYER:1;10

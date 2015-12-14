@@ -10,6 +10,7 @@ import logic.RandomUtility;
 import main.Main;
 import utility.DrawingUtility;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -138,7 +139,10 @@ public class GameScreen extends JComponent {
 		// TODO Auto-generated method stub
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
+		g2.clearRect(0, 0, GameScreen.WIDTH, GameScreen.HEIGHT);
 		DrawingUtility.drawBg(g2, ranBg);
+//		g2.setColor(Color.GRAY);
+//		g2.fillRect(0, 0, 600, 700);
 		DrawingUtility.drawGameName(g2, 160, 20);
 		
 		RenderableHolder.sort();
@@ -177,7 +181,7 @@ public class GameScreen extends JComponent {
 			if(GameLogic.playerStatus.isPause()) return;
 			if(GameLogic.playerStatus.isWin){
 				DrawingUtility.drawWinScreen(g2);
-			}else DrawingUtility.drawLoseScreen(g2);
+			}else DrawingUtility.drawLoseScreen(g2,GameLogic.playerStatus.getTime() == 0);
 			
 		}else if(GameLogic.playerStatus.isPause() ){
 			DrawingUtility.drawPauseScreen(g2);
