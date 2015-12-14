@@ -58,10 +58,11 @@ public class DrawingUtility {
 	public static BufferedImage winLine = getImage("res/img/winLine.png");
 	public static BufferedImage gameName = getImage("res/img/GameName.png");
 	public static BufferedImage introGame = getImage("res/img/introGame.png");
+	public static BufferedImage introGameBut = getImage("res/img/introGame-but.png");
 	public static BufferedImage[] bg = new BufferedImage[7];
 	
 	public static BufferedImage[] startBG = new BufferedImage[4];
-	public static BufferedImage startInfoBut = getImage("res/img/info-but1.png");
+	public static BufferedImage startInfoBut = getImage("res/img/info-but.png");
 	public static BufferedImage startDragon = getImage("res/img/start-dragon-all.png");
 	public static BufferedImage startButton = getImage("res/img/start-but-all.png");
 	public static BufferedImage startButtonCover = getImage("res/img/start-but-all-cover.png");
@@ -353,7 +354,7 @@ public class DrawingUtility {
 		g.setComposite(tran);
 		
 		g.drawImage(back, resizeBg, 10, 650);
-		g.fillRect(590-125/3, 650, 125/3, 125/3);
+		g.drawImage(introGameBut, resizeBg, 590-125/3, 650);
 	}
 	
 	public static void drawIntroGame(Graphics2D g){

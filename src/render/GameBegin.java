@@ -60,13 +60,14 @@ public class GameBegin extends JComponent {
 					}
 					if(475 <= e.getY() && e.getY() <= 575){
 //						click PLAY but
+
 						if(375/2+125 <= e.getX() && e.getX() <= 375/2+225){
 							if(index != -1 && !name[index].equals("no name")){
 								GameLogic.playerStatus = new PlayerStatus(name[index], state[index], star[index]);
 								GameSaveUtility.recordData();
 								Main.runGame();
-								
 							}
+
 						}
 //						click BIN but
 						else if(375/2 <= e.getX() && e.getX() <= 375/2+100){
@@ -258,19 +259,23 @@ public class GameBegin extends JComponent {
 				g2.fillRoundRect(375/2 +125, 475, 100, 100, 40, 40);
 			}
 		}
-		//BACK BUT
+		
+		
 		else if(InputUtility.getMouseY() >= 650 && InputUtility.getMouseY() <= 650+125/3 && !isIntroGame){
+			
+			//INTROGAME BUT
+			if(InputUtility.getMouseX() >= 590-125/3 && InputUtility.getMouseX() <= 590){
+				g2.fillOval(590-125/3, 650, 125/3, 125/3);
+			}
+			
+			//BACK BUT
 			if(InputUtility.getMouseX() >= 10 && InputUtility.getMouseX() <= 10+125/3){
 				g2.drawImage(DrawingUtility.backCover, DrawingUtility.resizeBg, 10, 650);
 			}
 		}
+
 		
-		//INTROGAME BUT
-		else if(InputUtility.getMouseY() >= 650 && InputUtility.getMouseY() <= 650+125/3 && !isIntroGame){
-			if(InputUtility.getMouseX() >= 590-125/3 && InputUtility.getMouseX() <= 590){
-				g2.fillOval(690, 650, 125/3, 125/3);
-			}
-		}
+
 		
 		
 		else if(375/2 <= InputUtility.getMouseX() && InputUtility.getMouseX() <= 375/2+225 && !isIntroGame){
