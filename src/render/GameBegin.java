@@ -20,7 +20,6 @@ import logic.PlayerStatus;
 import main.Main;
 import utility.DrawingUtility;
 import utility.GameSaveUtility;
-import utility.GameSaveUtility.GameSaveRecord;
 
 public class GameBegin extends JComponent {
 	private String[] data;
