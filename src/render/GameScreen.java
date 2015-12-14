@@ -9,6 +9,7 @@ import logic.PlayerStatus;
 import logic.RandomUtility;
 import main.Main;
 import utility.DrawingUtility;
+import utility.GameSaveUtility;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -132,6 +133,9 @@ public class GameScreen extends JComponent {
 			}
 		});
 		
+		requestFocus();
+		setDoubleBuffered(true);
+		
 	}
 	
 	@Override
@@ -180,17 +184,53 @@ public class GameScreen extends JComponent {
 			RenderableHolder.clear();
 			if(GameLogic.playerStatus.isPause()) return;
 			if(GameLogic.playerStatus.isWin){
+//				WIN SCREEN
+				GameSaveUtility.updatePlayer(GameLogic.playerStatus.getName(), GameLogic.playerStatus.getState(), GameLogic.playerStatus.getMoney());
+				GameSaveUtility.recordData();
 				DrawingUtility.drawWinScreen(g2);
-			}else DrawingUtility.drawLoseScreen(g2,GameLogic.playerStatus.getTime() == 0);
+//				g2.fillRect(375/2, 475/2 + 50, 100, 100);
+				if(InputUtility.getMouseY() >= 475/2 + 50 && InputUtility.getMouseY() <= 475/2 + 150 ){
+//					back to HOME
+					if(InputUtility.getMouseX() >= 375/2 && InputUtility.getMouseX() <= 375/2 + 100){
+						GameLogic.playerStatus.isEnd = true;
+						System.out.println("in");
+						Main.titleScene();
+						
+					}
+//					NEXT STAGE
+					else if(InputUtility.getMouseX() >= 375/2 + 125 && InputUtility.getMouseX() <= 375/2 +205){
+//						new player up STAGE and STAR
+						GameLogic.playerStatus = new PlayerStatus(GameLogic.playerStatus.getName(), GameLogic.playerStatus.getState()+1, GameLogic.playerStatus.getMoney()+10);
+						Main.runGame();
+					}
+				}
+			}else {
+//			LOSE SCREEN
+				DrawingUtility.drawLoseScreen(g2,GameLogic.playerStatus.getTime() == 0);
+				if(InputUtility.getMouseY() >= 475/2 + 50 && InputUtility.getMouseY() <= 475/2 + 150 ){
+//					back to HOME
+					if(InputUtility.getMouseX() >= 375/2 && InputUtility.getMouseX() <= 375/2 + 100){
+						GameLogic.playerStatus.isEnd = true;
+						Main.titleScene();
+					}
+//					PLAY AGAIN
+					if(InputUtility.getMouseX() >= 375/2 + 105 && InputUtility.getMouseX() <= 375/2 +205){
+//						new player up STAGE and STAR
+						GameLogic.playerStatus = new PlayerStatus(GameLogic.playerStatus.getName(), GameLogic.playerStatus.getState(), GameLogic.playerStatus.getMoney());
+						Main.runGame();
+					}
+				}
+			}
 			
 		}else if(GameLogic.playerStatus.isPause() ){
+//			PAUSE SCREEN
 			DrawingUtility.drawPauseScreen(g2);
 			if(InputUtility.isMouseLeftDownTrigger()){
 				if(InputUtility.getMouseY() >= 475/2+125 && InputUtility.getMouseY() <= 475/2+225){
 //					back to HOME
 					if(InputUtility.getMouseX() >= 375/2 && InputUtility.getMouseX() <= 375/2+100){
-						Main.titleScene();
 						GameLogic.playerStatus.isEnd = true;
+						Main.titleScene();
 					}
 //					sound
 					if(InputUtility.getMouseX() >= 125+375/2 && InputUtility.getMouseX() <= 225+375/2){
@@ -202,9 +242,14 @@ public class GameScreen extends JComponent {
 					if(InputUtility.getMouseX() >= 125+375/2 && InputUtility.getMouseX() <= 225+375/2){
 						GameLogic.playerStatus.setPause(false);
 					}
-//					new state again
+//					PLAY THIS STAGE AGAIN
 					if(InputUtility.getMouseX() >= 375/2 && InputUtility.getMouseX() <= 375/2+100){
-						
+						String name = GameLogic.playerStatus.getName();
+						int state = GameLogic.playerStatus.getState();
+						int star = GameLogic.playerStatus.getMoney();
+						RenderableHolder.clear();
+						GameLogic.playerStatus.setPause(false);
+						GameLogic.playerStatus = new PlayerStatus(name, state, star);
 						Main.runGame();
 						
 					}

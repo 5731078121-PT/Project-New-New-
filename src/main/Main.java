@@ -9,6 +9,7 @@ import render.GameBegin;
 import render.GameScreen;
 import render.GameTitle;
 import render.GameWindow;
+import render.RenderableHolder;
 
 public class Main {
 	public static JFrame frame;
@@ -26,11 +27,15 @@ public class Main {
 		gameWindow = new GameWindow(gameTitle);
 		while(true){
 			try {
-				Thread.sleep(30);
+				Thread.sleep(20);
 			} catch (InterruptedException e) {}
 			gameWindow.getCurrentScene().repaint();
 			if(gameWindow.getCurrentScene() instanceof GameScreen){
+				
 				 gameLogic.logicUpdate();
+				 if(gameLogic.playerStatus.isEnd){
+					 RenderableHolder.clear();
+				 }
 			}
 			if(nextScene != null){				
 				gameWindow.getCurrentScene().removeAll();

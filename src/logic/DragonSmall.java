@@ -10,7 +10,7 @@ public class DragonSmall extends Dragon {
 	public DragonSmall(int x) {
 		super(x);
 		// TODO Auto-generated constructor stub
-		this.speed = 3;
+		this.speed = 2;
 		this.hpMax = 20;
 		this.hp = (int) this.hpMax;
 		this.i = RandomUtility.random(0, 7);

@@ -119,8 +119,8 @@ public class GameSaveUtility {
 	public static void updatePlayer(String name, int state, int star){
 		for(int i = 0; i<gameSaveRecord.length; i++){
 			if(gameSaveRecord[i].name.equals(name)){
-				gameSaveRecord[i].state = state;
-				gameSaveRecord[i].star = star;
+				gameSaveRecord[i].state = state + 1;
+				gameSaveRecord[i].star = star + 10;
 				break;
 			}
 		} 
