@@ -26,7 +26,7 @@ public class Main {
 		gameWindow = new GameWindow(gameTitle);
 		while(true){
 			try {
-				Thread.sleep(50);
+				Thread.sleep(30);
 			} catch (InterruptedException e) {}
 			gameWindow.getCurrentScene().repaint();
 			if(gameWindow.getCurrentScene() instanceof GameScreen){
