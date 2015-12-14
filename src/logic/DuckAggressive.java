@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 
 import input.InputUtility;
 import render.RenderableHolder;
+import utility.AudioUtility;
 import utility.DrawingUtility;
 
 public class DuckAggressive extends Duck{
@@ -109,6 +110,9 @@ public class DuckAggressive extends Duck{
 	}
 	
 	public void attackDragon(Dragon dragon){
+		if(dragon.hp%50 == 0) {
+			if(!DrawingUtility.isMute) AudioUtility.duckBiteSound.play();
+		}
 		dragon.decreaseHP(this.power);
 		System.out.println("in");
 	}

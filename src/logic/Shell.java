@@ -12,9 +12,8 @@ public class Shell implements IRenderable {
 	private float hpMax = 1500;
 	private int price = 2;
 
-	public int x,y,z;
+	public int x,y,z,hp;
 	private int defaultX = 50, defaultY = 275+150+75/2;
-	private int hp;
 	private boolean canBuy;
 	public boolean dead;
 	private boolean bought;

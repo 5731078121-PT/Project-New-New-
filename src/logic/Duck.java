@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 import input.InputUtility;
 import render.IRenderable;
 import render.RenderableHolder;
+import utility.AudioUtility;
 import utility.DrawingUtility;
 
 public class Duck implements IRenderable{
@@ -72,6 +73,7 @@ public class Duck implements IRenderable{
 			if(bought&&haveDragon){
 				if(eggDelay == eggDelayCounter){
 					eggDelayCounter = 0;
+					if(!DrawingUtility.isMute) AudioUtility.layEggSound.play();
 					RenderableHolder.getInstance().add(new Egg(this));
 				
 				}else eggDelayCounter++;

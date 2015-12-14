@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 
 import render.GameScreen;
 import render.IRenderable;
+import utility.AudioUtility;
 import utility.DrawingUtility;
 
 public class Dragon implements IRenderable{
@@ -34,12 +35,18 @@ public class Dragon implements IRenderable{
 	}
 	
 	public void attackDuck(Duck duck){
+		if(duck.hp%50 == 0) {
+			if(!DrawingUtility.isMute) AudioUtility.dragonBiteSound.play();
+		}
 		duck.decreaseHP(this.power);
 		y += speed;
 		
 	}
 	
 	public void attackShell(Shell shell){
+		if(shell.hp%50 == 0) {
+			if(!DrawingUtility.isMute) AudioUtility.dragonBiteSound.play();
+		}
 		shell.decreaseHP(this.power);
 		y+=speed;
 	}

@@ -10,6 +10,8 @@ import render.GameScreen;
 import render.IRenderable;
 import render.PlayingArea;
 import render.RenderableHolder;
+import utility.AudioUtility;
+import utility.DrawingUtility;
 
 public class GameLogic {
 
@@ -89,19 +91,23 @@ public class GameLogic {
 			
 		}
 		if(newDuck){
-			newDuck = false;
+			if(!DrawingUtility.isMute) AudioUtility.universalSound.play();
 			this.createDuck();
 		}
 		if(newSuperDuck){
+			if(!DrawingUtility.isMute) AudioUtility.universalSound.play();
 			this.createSuperDuck();
 		}
 		if(newShell){
+			if(!DrawingUtility.isMute) AudioUtility.universalSound.play();
 			this.createShell();
 		}
 		if(newAggressiveDuck){
+			if(!DrawingUtility.isMute) AudioUtility.universalSound.play();
 			this.createAggressiveDuck();
 		}
 		if(newFrozenDuck){
+			if(!DrawingUtility.isMute) AudioUtility.universalSound.play();
 			this.createFrozenDuck();
 		}
 		
@@ -214,6 +220,7 @@ public class GameLogic {
 							
 							if(!shell.dead && shell.column == dragon.column){
 								if(shell.y<=dragon.y && shell.y+50>=dragon.y){
+
 									dragon.attackShell(shell);
 								}
 							}
@@ -225,6 +232,7 @@ public class GameLogic {
 								if(aggressDuck.y <= dragon.y && aggressDuck.y+75 >= dragon.y){
 									aggressDuck.setJig(true);
 									System.out.println("jigjig");
+									
 									aggressDuck.attackDragon(dragon);
 								}else{
 									aggressDuck.setJig(false);

@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 
 import input.InputUtility;
 import render.RenderableHolder;
+import utility.AudioUtility;
 import utility.DrawingUtility;
 
 public class DuckSuper extends Duck{
@@ -50,6 +51,7 @@ public class DuckSuper extends Duck{
 		if(bought&&haveDragon){
 			if(eggDelay == eggDelayCounter){
 				eggDelayCounter = 0;
+				if(!DrawingUtility.isMute) AudioUtility.layEggSound.play();
 				RenderableHolder.getInstance().add(new EggSuper(this));
 			}else eggDelayCounter++;
 			if(hp == 0 ){

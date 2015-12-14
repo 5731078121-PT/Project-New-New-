@@ -18,6 +18,7 @@ import input.InputUtility;
 import logic.GameLogic;
 import logic.PlayerStatus;
 import main.Main;
+import utility.AudioUtility;
 import utility.DrawingUtility;
 import utility.GameSaveUtility;
 
@@ -53,16 +54,20 @@ public class GameBegin extends JComponent {
 					if(isIntroGame) {
 						if(620 <= e.getY() && e.getY() <= 645){
 							if(50 <= e.getX() && e.getX() <= 75){
+
+								if(!DrawingUtility.isMute) AudioUtility.universalSound.play();
 								isIntroGame = false;
+								
 							}
 						}
 						return;
 					}
 					if(475 <= e.getY() && e.getY() <= 575){
+						
 //						click PLAY but
-
 						if(375/2+125 <= e.getX() && e.getX() <= 375/2+225){
 							if(index != -1 && !name[index].equals("no name")){
+								if(!DrawingUtility.isMute) AudioUtility.universalSound.play();
 								GameLogic.playerStatus = new PlayerStatus(name[index], state[index], star[index]);
 								GameSaveUtility.recordData();
 								Main.runGame();
@@ -72,6 +77,7 @@ public class GameBegin extends JComponent {
 //						click BIN but
 						else if(375/2 <= e.getX() && e.getX() <= 375/2+100){
 							if(index != -1){
+								if(!DrawingUtility.isMute) AudioUtility.universalSound.play();
 								System.out.println("binbin");
 								GameSaveUtility.removePlayer(index);
 								String str = GameSaveUtility.updateData();
@@ -85,26 +91,31 @@ public class GameBegin extends JComponent {
 										
 					if(375/2 <= InputUtility.getMouseX() && InputUtility.getMouseX() <= 375/2+225){
 						if(125 <= InputUtility.getMouseY() && InputUtility.getMouseY() <= 125+60){
+							if(!DrawingUtility.isMute) AudioUtility.universalSound.play();
 							mouseClickX = e.getX();
 							mouseClickY = e.getY();
 							index = 0;
 							noName(index);
 						}else if(125+1*65 <= InputUtility.getMouseY() && InputUtility.getMouseY() <= 125+60*2){
+							if(!DrawingUtility.isMute) AudioUtility.universalSound.play();
 							mouseClickX = e.getX();
 							mouseClickY = e.getY();
 							index = 1;
 							noName(index);
 						}else if(125+2*65 <= InputUtility.getMouseY() && InputUtility.getMouseY() <= 125+60*3){
+							if(!DrawingUtility.isMute) AudioUtility.universalSound.play();
 							mouseClickX = e.getX();
 							mouseClickY = e.getY();
 							index = 2;
 							noName(index);
 						}else if(125+3*65 <= InputUtility.getMouseY() && InputUtility.getMouseY() <= 125+60*4){
+							if(!DrawingUtility.isMute) AudioUtility.universalSound.play();
 							mouseClickX = e.getX();
 							mouseClickY = e.getY();
 							index = 3;
 							noName(index);
 						}else if(125+4*65 <= InputUtility.getMouseY() && InputUtility.getMouseY() <= 125+60*5){
+							if(!DrawingUtility.isMute) AudioUtility.universalSound.play();
 							mouseClickX = e.getX();
 							mouseClickY = e.getY();
 							index = 4;
@@ -115,21 +126,25 @@ public class GameBegin extends JComponent {
 					else{
 						mouseClickX = -1;
 						mouseClickY = -1;
+						index = -1;
 					}
 					
+
 					if(e.getY() >= 650 && e.getY() <= 650+125/3){
+						//back but
 						if(e.getX() >= 10 && e.getX() <= 10+125/3){
+
+							if(!DrawingUtility.isMute) AudioUtility.universalSound.play();
 							Main.titleScene();
 						}
-					}
-					
-					if(e.getY() >= 650 && e.getY() <= 650+125/3){
+						//info but
 						if(e.getX() >= 590-125/3 && e.getX() <= 590){
+
+							if(!DrawingUtility.isMute) AudioUtility.universalSound.play();
 							isIntroGame = true;
 						}
 					}
 					
-
 					
 					if(!InputUtility.isMouseLeftDown()){
 						InputUtility.setMouseLeftDownTrigger(true);

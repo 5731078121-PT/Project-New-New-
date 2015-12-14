@@ -21,6 +21,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 
+import utility.AudioUtility;
 import utility.DrawingUtility;
 import logic.GameLogic;
 import main.Main;
@@ -50,10 +51,19 @@ public class GameTitle extends JPanel{
 				// TODO Auto-generated method stub
 				super.mouseClicked(e);
 				
+				// start but
 				if(e.getX() >= 125 && e.getX() <= 360){
 					if(e.getY() >= 565 && e.getY() <= 640) {
+						if(!DrawingUtility.isMute) AudioUtility.universalSound.play();
 						Main.isStart = true;
 						Main.startGame();
+					}
+				}
+				
+				//info but
+				if(e.getX() >= 10 && e.getX() <= 10+125/3){
+					if(e.getY() >= 650 && e.getY() <= 650+125/3) {
+						if(!DrawingUtility.isMute) AudioUtility.universalSound.play();
 					}
 				}
 				
@@ -102,8 +112,6 @@ public class GameTitle extends JPanel{
 		
 		if(InputUtility.getMouseX() >= 125 && InputUtility.getMouseX() <= 360){
 			if(InputUtility.getMouseY() >= 565 && InputUtility.getMouseY() <= 640) {
-			
-				System.out.println("yeahhh");
 				
 				AlphaComposite tran = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f);
 				g2.setComposite(tran);
