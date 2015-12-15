@@ -83,11 +83,11 @@ public class GameSaveUtility {
 			String data = "";
 			for(int i = 0; i<gameSaveRecord.length; i++){
 				data += gameSaveRecord[i].getRecord();
-				System.out.println(gameSaveRecord[i].getRecord());
+//				System.out.println(gameSaveRecord[i].getRecord());
 				data += "\n";
 			}
 			out.write(data);
-			System.out.println("write");
+//			System.out.println("write");
 			out.close();
 		} catch (IOException e1) {
 			JOptionPane.showMessageDialog(null, "Error saving high score record", 

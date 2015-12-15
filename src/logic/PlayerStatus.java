@@ -115,12 +115,12 @@ public class PlayerStatus implements IRenderable{
 			}
 			this.isWin = true;
 //			UPDATE PLAYER STATE and STAR
-			GameSaveUtility.updatePlayer(GameLogic.playerStatus.getName(), GameLogic.playerStatus.getState(), GameLogic.playerStatus.getMoney());
+			GameSaveUtility.updatePlayer(GameLogic.playerStatus.getName(), GameLogic.playerStatus.getStage(), GameLogic.playerStatus.getMoney());
 			GameSaveUtility.recordData();
 		}
 		
 		time -= 1;
-		System.out.println(time);
+//		System.out.println(time);
 		
 		
 	}
