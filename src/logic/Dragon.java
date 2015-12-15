@@ -72,7 +72,7 @@ public class Dragon implements IRenderable{
 		
 		if(hp == 0 ){
 			dead = true;
-//			System.out.println("dragon deadddd");
+
 		}
 		if(y<= 100){
 			GameLogic.playerStatus.isEnd = true;

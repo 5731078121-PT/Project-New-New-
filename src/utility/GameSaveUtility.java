@@ -83,11 +83,11 @@ public class GameSaveUtility {
 			String data = "";
 			for(int i = 0; i<gameSaveRecord.length; i++){
 				data += gameSaveRecord[i].getRecord();
-//				System.out.println(gameSaveRecord[i].getRecord());
+
 				data += "\n";
 			}
 			out.write(data);
-//			System.out.println("write");
+
 			out.close();
 		} catch (IOException e1) {
 			JOptionPane.showMessageDialog(null, "Error saving high score record", 
@@ -104,7 +104,7 @@ public class GameSaveUtility {
 				gameSaveRecord[i].name = name;
 				gameSaveRecord[i].star = 10;
 				gameSaveRecord[i].state = 1;
-				System.out.println("add   "+gameSaveRecord[i].name);
+
 				recordData();
 				return;
 			}
@@ -112,8 +112,11 @@ public class GameSaveUtility {
 	}
 	
 	public static void removePlayer(int i){
-//		System.out.println("remove");
+
 		gameSaveRecord[i].name = "add name"; 
+//		chage stage star
+		gameSaveRecord[i].state = 0;
+		gameSaveRecord[i].star = 0;
 	}
 	
 	public static void updatePlayer(String name, int state, int star){
@@ -177,18 +180,18 @@ public class GameSaveUtility {
 			}
 			in.close();
 			String[] records = str.split("\n");
-//			System.out.println("    " + gameSaveRecord.length);
+
 			for(int i = 0; i<gameSaveRecord.length; i++){
 				try{
 					gameSaveRecord[i] = new GameSaveRecord(records[i]);
-//					System.out.println(gameSaveRecord[i]);
+
 				}catch(StateParsingException e){
-//					System.out.println("err");
+
 					System.err.println("Error parsing line " + (i+1) + ", " + e.getMessage());
 					gameSaveRecord[i] = new GameSaveRecord("ERROR_RECORD", 0, 0);
 				}
 			}
-//			System.out.println(gameSaveRecord+ " BEE ");
+
 			Arrays.sort(gameSaveRecord);
 			return true;
 		}catch(Exception e){

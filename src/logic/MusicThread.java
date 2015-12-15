@@ -19,7 +19,7 @@ public class MusicThread implements Runnable{
 	public void run() {
 		// TODO Auto-generated method stub
 		while(true){
-//			System.out.println("run");
+
 			try{
 				Thread.sleep(10);
 			}catch(InterruptedException e){}

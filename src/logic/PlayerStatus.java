@@ -120,7 +120,7 @@ public class PlayerStatus implements IRenderable{
 		}
 		
 		time -= 1;
-//		System.out.println(time);
+
 		
 		
 	}

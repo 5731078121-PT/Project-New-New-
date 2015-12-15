@@ -26,37 +26,21 @@ import utility.GameSaveUtility;
 public class GameBegin extends JComponent {
 	private String[] data;
 	private String[] name;
-	private int[] state;	
+	private int[] stage;	
 	private int[] star;
 	private int index;
 	private int mouseClickX  = -1, mouseClickY = -1;
 	private boolean isIntroGame = false;
-	
-	public String getName(int index) {
-		return name[index];
-	}
-
-	public int getState(int index) {
-		return state[index];
-	}
-
-	public int getStar(int index) {
-		return star[index];
-	}
-
-	public int getIndex() {
-		return index;
-	}
 
 	public GameBegin() {
 		// TODO Auto-generated constructor stub
 		this.setPreferredSize(new Dimension(GameScreen.WIDTH, GameScreen.HEIGHT));
-//		System.out.println("in");
+
 		
 		String str = GameSaveUtility.displayPlayer();
 		data = new String[5];
 		name = new String[5];
-		state = new int[5];
+		stage = new int[5];
 		star = new int[5];
 		data = str.split("\n");
 		updateData();
@@ -67,7 +51,7 @@ public class GameBegin extends JComponent {
 			public void mouseClicked(MouseEvent e) {
 				// TODO Auto-generated method stub
 				super.mouseClicked(e);
-//				System.out.println("click");
+
 				if(e.getButton() == 1){
 
 //					CLICK INFO BUT
@@ -88,7 +72,7 @@ public class GameBegin extends JComponent {
 						if(375/2+125 <= e.getX() && e.getX() <= 375/2+225){
 							if(index != -1 && !name[index].equalsIgnoreCase("add name")){
 								if(!AudioUtility.isMute) AudioUtility.universalClickSound.play();
-								GameLogic.playerStatus = new PlayerStatus(name[index], state[index], star[index]);
+								GameLogic.playerStatus = new PlayerStatus(name[index], stage[index], star[index]);
 								GameSaveUtility.recordData();
 								InputUtility.setMouseLeftDown(false);
 								Main.runGame();
@@ -99,7 +83,7 @@ public class GameBegin extends JComponent {
 						else if(375/2 <= e.getX() && e.getX() <= 375/2+100){
 							if(index != -1){
 								if(!AudioUtility.isMute) AudioUtility.universalClickSound.play();
-//								System.out.println("binbin");
+
 								GameSaveUtility.removePlayer(index);
 								String str = GameSaveUtility.updateData();
 								data = str.split("\n");
@@ -202,16 +186,21 @@ public class GameBegin extends JComponent {
 		if(!name[index].equals("add name")) return ;
 		String name = "";
 		try{
-			 name = JOptionPane.showInputDialog(new JFrame(), "Enter your name", "Welcome", JOptionPane.QUESTION_MESSAGE);
-			 name = name.toUpperCase();
-			 if(name.length() > 7) name = name.substring(0, 7);
-			 GameSaveUtility.addPlayer(name);
-			 String str = GameSaveUtility.updateData();
-			 data = str.split("\n");
-			 updateData();
-			 return ;
+//			insert new name
+			name = JOptionPane.showInputDialog(new JFrame(), "Enter your name", "Welcome", JOptionPane.QUESTION_MESSAGE);
+			name = name.toUpperCase();
+			if(name.length() > 7) name = name.substring(0, 7);
+			if(name.indexOf(":")!= -1 || name.indexOf(";") != -1){
+				JOptionPane.showMessageDialog(new JFrame(), "Please don't put \":\" or \";\" in your name","Error",JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+			GameSaveUtility.addPlayer(name);
+			String str = GameSaveUtility.updateData();
+			data = str.split("\n");
+			updateData();
+			return ;
 		}catch(NullPointerException e){
-			System.out.println("catch");
+			
 		}
 		
 		
@@ -222,7 +211,7 @@ public class GameBegin extends JComponent {
 		for(int i = 0; i<5; i++){
 			name[i] = data[i].substring(0, data[i].indexOf(":"));
 //			if(name[i].equals("")) name[i] = "no name";
-			state[i] = Integer.parseInt(data[i].substring(data[i].indexOf(":")+1, data[i].indexOf(";")));
+			stage[i] = Integer.parseInt(data[i].substring(data[i].indexOf(":")+1, data[i].indexOf(";")));
 			data[i] = data[i].trim();
 			star[i] = Integer.parseInt(data[i].substring(data[i].indexOf(";")+1, data[i].length()));
 		}
@@ -246,7 +235,7 @@ public class GameBegin extends JComponent {
 		DrawingUtility.drawGameBegin(g2);
 		
 		
-//		System.out.println(index);
+
 		
 //		action when PLAY'S NAME is clicked
 		g2.setColor(Color.white);
@@ -290,7 +279,7 @@ public class GameBegin extends JComponent {
 		if(475 <= InputUtility.getMouseY() && InputUtility.getMouseY() <= 575 && !isIntroGame){
 			if(375/2 <= InputUtility.getMouseX() && InputUtility.getMouseX() <= 375/2+100){
 				g2.fillRoundRect(375/2, 475, 100, 100, 40, 40);
-//				System.out.println("in");
+
 			}
 			else if(375/2+125 <= InputUtility.getMouseX() && InputUtility.getMouseX() <= 375/2+225){
 				g2.fillRoundRect(375/2 +125, 475, 100, 100, 40, 40);

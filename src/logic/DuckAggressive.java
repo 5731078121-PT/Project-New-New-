@@ -94,7 +94,7 @@ public class DuckAggressive extends Duck{
 		if(GameLogic.playerStatus.isPause() || GameLogic.playerStatus.isEnd) return;
 		if(bought){
 			if(isJig){
-				System.out.println("draw Jig");
+
 				if(currentFrame < 10) currentFrame = 10;
 				if(frameDelayCount == 2){
 					currentFrame++;
@@ -124,7 +124,7 @@ public class DuckAggressive extends Duck{
 			if(!AudioUtility.isMute) AudioUtility.duckBiteSound.play();
 		}
 		dragon.decreaseHP(this.power);
-		System.out.println("in");
+
 	}
 	
 	public boolean isJig() {

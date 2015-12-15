@@ -133,7 +133,7 @@ public class GameLogic {
 				releaseDragonDelayCounter = 0;
 				releaseDragonDelay = RandomUtility.random(200, 250);
 				int ran = RandomUtility.random(0, 9);
-				System.out.println(ran);
+
 //				int ran = 9;
 				int i = RandomUtility.random(1, 5);
 //				int i = 1;
@@ -256,8 +256,6 @@ public class GameLogic {
 	}
 	
 	public void createDuck(){
-//		duck = new Duck(50,125);
-//		RenderableHolder.getInstance().add(duck);
 		RenderableHolder.getInstance().add(new Duck(50, 125+75/2));
 		newDuck = false;
 	}

@@ -9,7 +9,7 @@ import utility.DrawingUtility;
 import utility.InputUtility;
 
 public class Shell implements IRenderable {
-	private float hpMax = 1500;
+	private float hpMax = 3500;
 	private int price = 2;
 	private int coolDown = 50;
 	

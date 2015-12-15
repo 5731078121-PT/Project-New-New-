@@ -13,7 +13,7 @@ import utility.InputUtility;
 public class Duck implements IRenderable{
 	protected float hpMax = 500;
 	protected int price = 4;
-	protected int coolDown = 70;
+	protected int coolDown = 60;
 
 	protected int defaultX = 50, defaultY = 125+75/2;
 	public int x, y;

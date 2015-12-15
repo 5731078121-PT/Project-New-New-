@@ -8,30 +8,16 @@ import java.awt.image.BufferedImage;
 import utility.DrawingUtility;
 
 public class PlayingArea implements IRenderable{
-	private BufferedImage bgImage = null;
-	private BufferedImage icon = null;
-	private int currentX = 0;
-	private int imageWidth;
+
 	private int[][] table;
 	private final int boxWidth = 75;
 	
 	public PlayingArea() {
 		// TODO Auto-generated constructor stub
-//		bgImage = DrawingUtility.bg;
-//		if(bgImage != null){
-//			imageWidth = bgImage.getWidth();
-//		}else{
-//			imageWidth = 0;
-//		}
 		table = new int[7][5];
 	}
 	
-	public void updateBackground(){
-		currentX++;
-		if(currentX >= imageWidth){
-			currentX = 0;
-		}
-	}
+
 	
 	public boolean canBePlaced(int x, int y){
 		if(x >= 175 && x <= GameScreen.WIDTH - 50){

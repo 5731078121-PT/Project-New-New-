@@ -153,8 +153,6 @@ public class GameScreen extends JComponent {
 		Graphics2D g2 = (Graphics2D) g;
 		g2.clearRect(0, 0, GameScreen.WIDTH, GameScreen.HEIGHT);
 		DrawingUtility.drawBg(g2, ranBg);
-//		g2.setColor(Color.GRAY);
-//		g2.fillRect(0, 0, 600, 700);
 		DrawingUtility.drawGameName(g2, 160, 20);
 		
 		RenderableHolder.sort();
@@ -189,7 +187,7 @@ public class GameScreen extends JComponent {
 			}
 		}
 		if(GameLogic.playerStatus.isEnd){
-			RenderableHolder.clear();
+//			RenderableHolder.clear();
 			if(GameLogic.playerStatus.isPause()) return;
 			if(GameLogic.playerStatus.isWin){
 //WIN SCREEN
@@ -202,6 +200,7 @@ public class GameScreen extends JComponent {
 					if(InputUtility.getMouseX() >= 375/2 && InputUtility.getMouseX() <= 375/2 + 100){
 						if(!AudioUtility.isMute) AudioUtility.universalClickSound.play();
 						GameLogic.playerStatus.isEnd = true;
+						RenderableHolder.clear();
 						Main.titleScene();
 						
 					}
@@ -210,6 +209,7 @@ public class GameScreen extends JComponent {
 //						new player up STAGE and STAR
 						if(!AudioUtility.isMute) AudioUtility.universalClickSound.play();
 						GameLogic.playerStatus = new PlayerStatus(GameLogic.playerStatus.getName(), GameLogic.playerStatus.getStage()+1, GameLogic.playerStatus.getMoney()+10);
+						RenderableHolder.clear();
 						Main.runGame();
 					}
 				}
@@ -221,6 +221,7 @@ public class GameScreen extends JComponent {
 					if(InputUtility.getMouseX() >= 375/2 && InputUtility.getMouseX() <= 375/2 + 100){
 						if(!AudioUtility.isMute) AudioUtility.universalClickSound.play();
 						GameLogic.playerStatus.isEnd = true;
+						RenderableHolder.clear();
 						Main.titleScene();
 					}
 //		PLAY AGAIN

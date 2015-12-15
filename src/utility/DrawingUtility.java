@@ -268,7 +268,7 @@ public class DrawingUtility {
 		g.drawImage(sub, resizeHalf, 175, 125-45/2);
 		int r = winLine.getWidth() * time/ PlayerStatus.timeMax;
 		if(r < 4) r = 4;
-//		System.out.println("     "+r);
+
 		tran = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1);
 		g.setComposite(tran);
 		sub = winLine.getSubimage(0, 0, r, winLine.getHeight()*2/3);
