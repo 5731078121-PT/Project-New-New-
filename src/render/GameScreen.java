@@ -12,6 +12,7 @@ import utility.GameSaveUtility;
 import utility.InputUtility;
 import utility.RandomUtility;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;

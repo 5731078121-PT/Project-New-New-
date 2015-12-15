@@ -301,26 +301,6 @@ public class DrawingUtility {
 		BufferedImage startDuckUse = startDuck.getSubimage((i%12)*600, 0, 600, 700);
 		g.drawImage(startDuckUse, null, 0, 0);
 		
-/*		if(ibut == 22){
-			g.drawImage(frozenDuckPic.getSubimage(200, 0, 200, 200), resizeDuck, 575-0*25+300, 50);
-		}
-		
-		else if(ibut == 23){
-			g.drawImage(aggresDuckPic.getSubimage(200, 0, 200, 200), resizeDuck, 575-0*25+200, 50);
-			g.drawImage(frozenDuckPic.getSubimage(200, 0, 200, 200), resizeDuck, 575-1*25+300, 50);
-		}
-		
-		else if(ibut == 24){
-			g.drawImage(superDuckPic.getSubimage(200, 0, 200, 200), resizeDuck, 575-0*25+100, 50);
-			g.drawImage(aggresDuckPic.getSubimage(200, 0, 200, 200), resizeDuck, 575-1*25+200, 50);
-			g.drawImage(frozenDuckPic.getSubimage(200, 0, 200, 200), resizeDuck, 575-2*25+300, 50);
-		}
-		
-		g.drawImage(duckPic.getSubimage(200, 0, 200, 200), resizeDuck, 575-ibut*25, 50);
-		g.drawImage(superDuckPic.getSubimage(200, 0, 200, 200), resizeDuck, 575-(ibut+1)*25+100, 50);
-		g.drawImage(aggresDuckPic.getSubimage(200, 0, 200, 200), resizeDuck, 575-(ibut+2)*25+200, 50);
-		g.drawImage(frozenDuckPic.getSubimage(200, 0, 200, 200), resizeDuck, 575-(ibut+3)*25+300, 50);*/
-		
 		
 		BufferedImage startButtonUse = startButton.getSubimage((ibut%4)*600, 0, 600, 700);
 		g.drawImage(startButtonUse, null, 0, 0);
