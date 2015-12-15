@@ -71,7 +71,6 @@ public class GameTitle extends JPanel{
 				if(e.getX() >= 125 && e.getX() <= 360){
 					if(e.getY() >= 565 && e.getY() <= 640) {
 						if(!AudioUtility.isMute) AudioUtility.universalClickSound.play();
-						Main.isStart = true;
 						Main.startGame();
 					}
 				}

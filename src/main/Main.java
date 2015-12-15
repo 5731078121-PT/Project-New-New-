@@ -20,7 +20,6 @@ public class Main {
 	public static GameScreen gameScreen;
 	public static GameTitle gameTitle;
 	public static GameBegin gameBegin;
-	public static boolean isStart;
 	public static GameWindow gameWindow;
 	public static JComponent nextScene = null;
 	public static Thread t;
