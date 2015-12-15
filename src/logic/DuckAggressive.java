@@ -3,10 +3,10 @@ package logic;
 import java.awt.AlphaComposite;
 import java.awt.Graphics2D;
 
-import input.InputUtility;
 import render.RenderableHolder;
 import utility.AudioUtility;
 import utility.DrawingUtility;
+import utility.InputUtility;
 
 public class DuckAggressive extends Duck{
 	private int power = 1;
@@ -58,19 +58,19 @@ public class DuckAggressive extends Duck{
 			}
 			
 			
-//			if(bought&&haveDragon){
+			if(bought&&haveDragon){
 //				if(eggDelay == eggDelayCounter){
 //					eggDelayCounter = 0;
 //					RenderableHolder.getInstance().add(new Egg(this));
 //				
 //				}else eggDelayCounter++;
-//				if(hp == 0 ){
-//					GameLogic.playingArea.dead((y-125)/75, (x-175)/75);
-//					dead = true;
-//				}
-//				
-//				
-//			}
+				if(hp == 0 ){
+					GameLogic.playingArea.dead((y-125)/75, (x-175)/75);
+					dead = true;
+				}
+				
+				
+			}
 			
 		}	
 		
@@ -111,7 +111,7 @@ public class DuckAggressive extends Duck{
 				if(i == 9) i = 1;				
 			}
 		}
-		if(!(GameLogic.playerStatus.getState()>this.stageLock)){
+		if(!(GameLogic.playerStatus.getStage()>this.stageLock)){
 			DrawingUtility.drawLockDuck(g, defaultY, stageLock);
 			
 		}

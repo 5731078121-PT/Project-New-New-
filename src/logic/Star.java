@@ -4,10 +4,11 @@ import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-import input.InputUtility;
 import render.GameScreen;
 import render.IRenderable;
 import utility.DrawingUtility;
+import utility.InputUtility;
+import utility.RandomUtility;
 
 public class Star implements IRenderable{
 	private float gone = 250;

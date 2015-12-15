@@ -1,7 +1,5 @@
 package render;
 
-import input.InputUtility;
-
 import java.awt.AlphaComposite;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -23,6 +21,7 @@ import javax.swing.JProgressBar;
 
 import utility.AudioUtility;
 import utility.DrawingUtility;
+import utility.InputUtility;
 import logic.GameLogic;
 import main.Main;
 
@@ -49,16 +48,16 @@ public class GameTitle extends JPanel{
 				// start but
 				if(e.getX() >= 125 && e.getX() <= 360){
 					if(e.getY() >= 565 && e.getY() <= 640) {
-						if(!DrawingUtility.isMute) AudioUtility.universalSound.play();
+						if(!DrawingUtility.isMute) AudioUtility.universalClickSound.play();
 						Main.isStart = true;
 						Main.startGame();
 					}
 				}
 				
-				//info but
+				//info icon
 				if(e.getX() >= 10 && e.getX() <= 10+125/3){
 					if(e.getY() >= 650 && e.getY() <= 650+125/3) {
-						if(!DrawingUtility.isMute) AudioUtility.universalSound.play();
+						if(!DrawingUtility.isMute) AudioUtility.universalClickSound.play();
 						
 					}
 				}
@@ -100,12 +99,24 @@ public class GameTitle extends JPanel{
 		
 		DrawingUtility.drawGameTitle(g2,indexBG, index, count);
 		
+		
+//		ACTION WHEN MOUSE OVER
+		AlphaComposite tran = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f);
+		g2.setComposite(tran);
+
+//		info icon
+		if(InputUtility.getMouseX() >= 10 && InputUtility.getMouseX() <= 10+125/3){
+			if(InputUtility.getMouseY() >= 650 && InputUtility.getMouseY() <= 650+125/3) {
+				g2.setColor(Color.WHITE);
+				g2.fillOval(10, 650, 125/3, 125/3);
+			
+		}
+	}	
+		
+		
 //		start but
 		if(InputUtility.getMouseX() >= 125 && InputUtility.getMouseX() <= 360){
 			if(InputUtility.getMouseY() >= 565 && InputUtility.getMouseY() <= 640) {
-				
-				AlphaComposite tran = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f);
-				g2.setComposite(tran);
 			
 				BufferedImage startButtonCoverUse = DrawingUtility.startButtonCover.getSubimage((count%4)*600, 0, 600, 700);
 				g2.drawImage(startButtonCoverUse, null, 0, 0);

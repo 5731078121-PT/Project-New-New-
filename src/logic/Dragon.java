@@ -7,6 +7,7 @@ import render.GameScreen;
 import render.IRenderable;
 import utility.AudioUtility;
 import utility.DrawingUtility;
+import utility.RandomUtility;
 
 public class Dragon implements IRenderable{
 	protected float hpMax = 50;
@@ -71,7 +72,7 @@ public class Dragon implements IRenderable{
 		
 		if(hp == 0 ){
 			dead = true;
-			System.out.println("dragon deadddd");
+//			System.out.println("dragon deadddd");
 		}
 		if(y<= 100){
 			GameLogic.playerStatus.isEnd = true;
@@ -88,8 +89,8 @@ public class Dragon implements IRenderable{
 		tran = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float) hp/hpMax);
 		g.setComposite(tran);
 		
-		g.drawString(Integer.toString(column), x, y);
-		g.drawString(Integer.toString(hp), x, y+10);
+//		g.drawString(Integer.toString(column), x, y);
+//		g.drawString(Integer.toString(hp), x, y+10);
 
 		DrawingUtility.drawDragon(g, x, y, i);
 		if(isFrozen){

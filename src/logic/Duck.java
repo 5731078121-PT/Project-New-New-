@@ -4,11 +4,11 @@ import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-import input.InputUtility;
 import render.IRenderable;
 import render.RenderableHolder;
 import utility.AudioUtility;
 import utility.DrawingUtility;
+import utility.InputUtility;
 
 public class Duck implements IRenderable{
 	protected float hpMax = 500;
@@ -97,7 +97,7 @@ public class Duck implements IRenderable{
 
 	public void getDuck(){
 		if(coolDown != coolDownCounter) return;
-		if(InputUtility.isMouseLeftDownTrigger() && GameLogic.playerStatus.getMoney()>=this.price && GameLogic.playerStatus.getState()>this.stageLock){
+		if(InputUtility.isMouseLeftDownTrigger() && GameLogic.playerStatus.getMoney()>=this.price && GameLogic.playerStatus.getStage()>this.stageLock){
 //			GameLogic.newDuck = false;
 			if(defaultX <= InputUtility.getMouseX() && defaultX+75 >= InputUtility.getMouseX()){
 			
@@ -135,7 +135,7 @@ public class Duck implements IRenderable{
 			if(i == 9) i = 3;
 		}
 		
-		if(!(GameLogic.playerStatus.getState()>this.stageLock)){
+		if(!(GameLogic.playerStatus.getStage()>this.stageLock)){
 			DrawingUtility.drawLockDuck(g, defaultY, stageLock);
 			
 		}

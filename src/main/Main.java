@@ -4,7 +4,6 @@ import java.awt.Dimension;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 
-import input.InputUtility;
 import logic.GameLogic;
 import logic.MusicThread;
 import render.GameBegin;
@@ -12,6 +11,8 @@ import render.GameScreen;
 import render.GameTitle;
 import render.GameWindow;
 import render.RenderableHolder;
+import utility.AudioUtility;
+import utility.InputUtility;
 
 public class Main {
 	public static JFrame frame;
@@ -29,7 +30,7 @@ public class Main {
 		// TODO Auto-generated method stub
 		gameTitle = new GameTitle();
 		gameWindow = new GameWindow(gameTitle);
-		MusicThread musicThread = new MusicThread();
+		MusicThread musicThread = new MusicThread(AudioUtility.bgm, 5500);
 		t = new Thread(musicThread);
 		t.start();
 		

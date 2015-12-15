@@ -6,7 +6,7 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import input.InputUtility;
+import utility.InputUtility;
 
 public class GameWindow extends JFrame{
 	private JComponent currentScene;

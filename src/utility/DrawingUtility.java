@@ -234,7 +234,7 @@ public class DrawingUtility {
 		g.drawImage(replay, resizeHalf, 375/2 + 125, 475/2 + 50);
 	}
 	
-	public static void drawWinScreen(Graphics2D g){
+	public static void drawWinScreen(Graphics2D g, int stage){
 		AlphaComposite tran = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.7f);
 		g.setComposite(tran);
 		
@@ -246,8 +246,11 @@ public class DrawingUtility {
 		g.setComposite(noTran);
 		
 		g.setFont(standardFont);
-		Rectangle2D rec = g.getFontMetrics().getStringBounds("YOU WIN!", g);
-		g.drawString("YOU WIN!", (int) (GameScreen.WIDTH/2 - rec.getWidth()/2),475/2 + 25);
+		
+		Rectangle2D rec = g.getFontMetrics().getStringBounds("STAGE "+stage+" CLEAR", g);
+		g.drawString("STAGE "+stage+" CLEAR", (int) (GameScreen.WIDTH/2 - rec.getWidth()/2),475/2 + 25);
+		rec = g.getFontMetrics().getStringBounds("YOU WIN!", g);
+		g.drawString("YOU WIN!", (int) (GameScreen.WIDTH/2 - rec.getWidth()/2),475/2 - 25);
 		g.setFont(smallFont);
 		
 		g.drawImage(home, resizeHalf, 375/2, 475/2+50);
@@ -297,26 +300,6 @@ public class DrawingUtility {
 		
 		BufferedImage startDuckUse = startDuck.getSubimage((i%12)*600, 0, 600, 700);
 		g.drawImage(startDuckUse, null, 0, 0);
-		
-/*		if(ibut == 22){
-			g.drawImage(frozenDuckPic.getSubimage(200, 0, 200, 200), resizeDuck, 575-0*25+300, 50);
-		}
-		
-		else if(ibut == 23){
-			g.drawImage(aggresDuckPic.getSubimage(200, 0, 200, 200), resizeDuck, 575-0*25+200, 50);
-			g.drawImage(frozenDuckPic.getSubimage(200, 0, 200, 200), resizeDuck, 575-1*25+300, 50);
-		}
-		
-		else if(ibut == 24){
-			g.drawImage(superDuckPic.getSubimage(200, 0, 200, 200), resizeDuck, 575-0*25+100, 50);
-			g.drawImage(aggresDuckPic.getSubimage(200, 0, 200, 200), resizeDuck, 575-1*25+200, 50);
-			g.drawImage(frozenDuckPic.getSubimage(200, 0, 200, 200), resizeDuck, 575-2*25+300, 50);
-		}
-		
-		g.drawImage(duckPic.getSubimage(200, 0, 200, 200), resizeDuck, 575-ibut*25, 50);
-		g.drawImage(superDuckPic.getSubimage(200, 0, 200, 200), resizeDuck, 575-(ibut+1)*25+100, 50);
-		g.drawImage(aggresDuckPic.getSubimage(200, 0, 200, 200), resizeDuck, 575-(ibut+2)*25+200, 50);
-		g.drawImage(frozenDuckPic.getSubimage(200, 0, 200, 200), resizeDuck, 575-(ibut+3)*25+300, 50);*/
 		
 		
 		BufferedImage startButtonUse = startButton.getSubimage((ibut%4)*600, 0, 600, 700);

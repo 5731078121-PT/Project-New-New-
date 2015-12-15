@@ -16,6 +16,7 @@ public class PlayerStatus implements IRenderable{
 	private int time;
 	private int stopTime = 50*10;
 	private int money;
+	public int reMoney;
 
 	private int stage;
 	private String name;
@@ -28,7 +29,8 @@ public class PlayerStatus implements IRenderable{
 		this.name = name;
 		this.money = money;
 		this.stage = stage;
-		this.time = this.timeMax;
+		this.time = timeMax;
+		this.reMoney = money;
 	}
 //	public PlayerStatus() {
 //		// TODO Auto-generated constructor stub
@@ -139,7 +141,7 @@ public class PlayerStatus implements IRenderable{
 		this.money = money;
 	}
 	
-	public int getState() {
+	public int getStage() {
 		return stage;
 	}
 	

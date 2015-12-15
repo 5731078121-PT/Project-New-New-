@@ -4,7 +4,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import input.InputUtility;
 import javafx.print.PageLayout;
 import render.GameScreen;
 import render.IRenderable;
@@ -12,6 +11,8 @@ import render.PlayingArea;
 import render.RenderableHolder;
 import utility.AudioUtility;
 import utility.DrawingUtility;
+import utility.InputUtility;
+import utility.RandomUtility;
 
 public class GameLogic {
 
@@ -51,7 +52,7 @@ public class GameLogic {
 		createAggressiveDuck();
 		createFrozenDuck();
 		createShell();
-		currentStage = GameLogic.playerStatus.getState();
+		currentStage = GameLogic.playerStatus.getStage();
 		if(currentStage > 11) currentStage = 11; 
 		
 		dragonInState = new int[STAGE_MAX+1][10];
@@ -99,23 +100,23 @@ public class GameLogic {
 			
 		}
 		if(newDuck){
-			if(!DrawingUtility.isMute) AudioUtility.universalSound.play();
+			if(!DrawingUtility.isMute) AudioUtility.universalClickSound.play();
 			this.createDuck();
 		}
 		if(newSuperDuck){
-			if(!DrawingUtility.isMute) AudioUtility.universalSound.play();
+			if(!DrawingUtility.isMute) AudioUtility.universalClickSound.play();
 			this.createSuperDuck();
 		}
 		if(newShell){
-			if(!DrawingUtility.isMute) AudioUtility.universalSound.play();
+			if(!DrawingUtility.isMute) AudioUtility.universalClickSound.play();
 			this.createShell();
 		}
 		if(newAggressiveDuck){
-			if(!DrawingUtility.isMute) AudioUtility.universalSound.play();
+			if(!DrawingUtility.isMute) AudioUtility.universalClickSound.play();
 			this.createAggressiveDuck();
 		}
 		if(newFrozenDuck){
-			if(!DrawingUtility.isMute) AudioUtility.universalSound.play();
+			if(!DrawingUtility.isMute) AudioUtility.universalClickSound.play();
 			this.createFrozenDuck();
 		}
 		

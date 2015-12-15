@@ -4,9 +4,9 @@ import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-import input.InputUtility;
 import render.IRenderable;
 import utility.DrawingUtility;
+import utility.InputUtility;
 
 public class Shell implements IRenderable {
 	private float hpMax = 1500;
@@ -22,6 +22,7 @@ public class Shell implements IRenderable {
 	private int i , count;
 	public int column = -1;
 	private int coolDownCounter;
+	private int stageLock=0;
 	
 	public Shell(int x, int y) {
 		// TODO Auto-generated constructor stub
@@ -114,7 +115,8 @@ public class Shell implements IRenderable {
 	}
 	
 	public void getShell(){
-		if(InputUtility.isMouseLeftDownTrigger()){
+		if(coolDown != coolDownCounter) return;
+		if(InputUtility.isMouseLeftDownTrigger()&& GameLogic.playerStatus.getMoney()>=this.price && GameLogic.playerStatus.getStage()>this.stageLock){
 			
 			if(defaultX <= InputUtility.getMouseX() && defaultX+75 >= InputUtility.getMouseX()){
 								
