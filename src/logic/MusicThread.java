@@ -3,7 +3,6 @@ package logic;
 import java.applet.AudioClip;
 
 import utility.AudioUtility;
-import utility.DrawingUtility;
 
 public class MusicThread implements Runnable{
 	private int soundLength, count;
@@ -24,7 +23,7 @@ public class MusicThread implements Runnable{
 			try{
 				Thread.sleep(10);
 			}catch(InterruptedException e){}
-			if(DrawingUtility.isMute){
+			if(AudioUtility.isMute){
 				audio.stop();
 				synchronized (audio) {
 					try{

@@ -12,7 +12,7 @@ public class GameWindow extends JFrame{
 	private JComponent currentScene;
 	
 	public GameWindow(JComponent scene){
-		super("DDragon");
+		super("D-DRAGON");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 		

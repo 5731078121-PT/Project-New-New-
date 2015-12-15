@@ -16,8 +16,7 @@ public class Duck implements IRenderable{
 	protected int coolDown = 70;
 
 	protected int defaultX = 50, defaultY = 125+75/2;
-	protected int x;
-	public int y;
+	public int x, y;
 	protected int z;
 	protected int hp;
 	protected int eggDelay , eggDelayCounter;
@@ -26,7 +25,7 @@ public class Duck implements IRenderable{
 	protected boolean bought;
 	public boolean haveDragon;
 	protected AlphaComposite tran;
-	protected int i=0, count = 0;;
+	protected int currentFrame=0, frameDelayCount = 0;
 	public int column= -1;
 	protected int coolDownCounter;
 	protected int stageLock=0;
@@ -77,7 +76,7 @@ public class Duck implements IRenderable{
 			if(bought&&haveDragon){
 				if(eggDelay == eggDelayCounter){
 					eggDelayCounter = 0;
-					if(!DrawingUtility.isMute) AudioUtility.layEggSound.play();
+					if(!AudioUtility.isMute) AudioUtility.layEggSound.play();
 					RenderableHolder.getInstance().add(new Egg(this));
 				
 				}else eggDelayCounter++;
@@ -120,19 +119,19 @@ public class Duck implements IRenderable{
 		}else tran = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float) hp/hpMax);
 		g.setComposite(tran);
 		
-		DrawingUtility.drawDuck(g, x, y, i);
+		DrawingUtility.drawDuck(g, x, y, currentFrame);
 //		g.drawString(Integer.toString(column), x, y);
 //		g.drawString(Integer.toString(hp), x, y+10);
 		
 		
 		if(GameLogic.playerStatus.isPause() || GameLogic.playerStatus.isEnd) return;
 		if(bought){
-			if(i == 0) i = 3;
-			if(count==2){
-				i++;
-				count = 0;
-			}else count++;
-			if(i == 9) i = 3;
+			if(currentFrame == 0) currentFrame = 3;
+			if(frameDelayCount==2){
+				currentFrame++;
+				frameDelayCount = 0;
+			}else frameDelayCount++;
+			if(currentFrame == 9) currentFrame = 3;
 		}
 		
 		if(!(GameLogic.playerStatus.getStage()>this.stageLock)){

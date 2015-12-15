@@ -30,6 +30,7 @@ public class GameTitle extends JPanel{
 	private int index;
 	private int indexBG;
 	private int count;
+	private boolean isInfoGame = false;
 	
 	public GameTitle() {
 		// TODO Auto-generated constructor stub
@@ -45,22 +46,36 @@ public class GameTitle extends JPanel{
 				// TODO Auto-generated method stub
 				super.mouseClicked(e);
 				
+				//info icon
+				if(e.getX() >= 10 && e.getX() <= 10+125/3){
+					if(e.getY() >= 650 && e.getY() <= 650+125/3) {
+						if(!AudioUtility.isMute) AudioUtility.universalClickSound.play();
+						isInfoGame = !isInfoGame;
+					}
+				}
+				
+				if(isInfoGame) return;
+				
+				//sound icon
+				if(e.getX() >= 560 && e.getX() <= 560+30){
+					if(e.getY() >= 660 && e.getY() <= 660+30) {
+						AudioUtility.isMute = !AudioUtility.isMute;
+						if(!AudioUtility.isMute){
+							synchronized (AudioUtility.bgm) {
+								AudioUtility.bgm.notifyAll();
+							}
+						}
+					}
+				}	
 				// start but
 				if(e.getX() >= 125 && e.getX() <= 360){
 					if(e.getY() >= 565 && e.getY() <= 640) {
-						if(!DrawingUtility.isMute) AudioUtility.universalClickSound.play();
+						if(!AudioUtility.isMute) AudioUtility.universalClickSound.play();
 						Main.isStart = true;
 						Main.startGame();
 					}
 				}
 				
-				//info icon
-				if(e.getX() >= 10 && e.getX() <= 10+125/3){
-					if(e.getY() >= 650 && e.getY() <= 650+125/3) {
-						if(!DrawingUtility.isMute) AudioUtility.universalClickSound.play();
-						
-					}
-				}
 				
 			}
 		});
@@ -110,12 +125,19 @@ public class GameTitle extends JPanel{
 				g2.setColor(Color.WHITE);
 				g2.fillOval(10, 650, 125/3, 125/3);
 			
-		}
-	}	
-		
+			}
+		}	
+//		sound icon
+		if(InputUtility.getMouseX() >= 560 && InputUtility.getMouseX() <= 560+30){
+			if(InputUtility.getMouseY() >= 660 && InputUtility.getMouseY() <= 660+30) {
+				g2.setColor(Color.GRAY);
+				g2.fillRoundRect(560, 660, 30, 30, 5,5);
+			
+			}
+		}	
 		
 //		start but
-		if(InputUtility.getMouseX() >= 125 && InputUtility.getMouseX() <= 360){
+		if(InputUtility.getMouseX() >= 125 && InputUtility.getMouseX() <= 360 && !isInfoGame){
 			if(InputUtility.getMouseY() >= 565 && InputUtility.getMouseY() <= 640) {
 			
 				BufferedImage startButtonCoverUse = DrawingUtility.startButtonCover.getSubimage((count%4)*600, 0, 600, 700);
@@ -123,7 +145,10 @@ public class GameTitle extends JPanel{
 
 			}
 		}
-
+		
+		if(isInfoGame){
+			DrawingUtility.drawInfoGame(g2);
+		}
 
 		if(count == 24) count = 0;
 		if(count%2 == 0) index++;

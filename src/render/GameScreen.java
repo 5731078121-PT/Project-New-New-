@@ -8,10 +8,10 @@ import logic.PlayerStatus;
 import main.Main;
 import utility.AudioUtility;
 import utility.DrawingUtility;
-import utility.GameSaveUtility;
 import utility.InputUtility;
 import utility.RandomUtility;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -22,11 +22,11 @@ import java.awt.event.MouseMotionListener;
 
 import javax.swing.JComponent;
 
-
 public class GameScreen extends JComponent {
 	public static final int WIDTH = 600;
 	public static final int HEIGHT = 700;
 	public int ranBg;
+	private int mouseOverX, mouseOverY;
 	
 	public GameScreen() {
 		// TODO Auto-generated constructor stub
@@ -121,7 +121,14 @@ public class GameScreen extends JComponent {
 			@Override
 			public void mouseMoved(MouseEvent e) {
 				// TODO Auto-generated method stub
-				
+				mouseOverX = -1;
+				mouseOverY = -1;
+				if(GameLogic.playerStatus.isEnd || GameLogic.playerStatus.isPause()){
+					if(InputUtility.isMouseOnScreen()){
+						mouseOverX = e.getX();
+						mouseOverY = e.getY();
+					}	
+				}
 			}
 			
 			@Override
@@ -189,33 +196,36 @@ public class GameScreen extends JComponent {
 				GameLogic.playerStatus.reMoney = GameLogic.playerStatus.getMoney();
 				
 				DrawingUtility.drawWinScreen(g2, GameLogic.playerStatus.getStage());
-//				g2.fillRect(375/2, 475/2 + 50, 100, 100);
+
 				if(InputUtility.getMouseY() >= 475/2 + 50 && InputUtility.getMouseY() <= 475/2 + 150 ){
-//	back to HOME
+//		back to HOME
 					if(InputUtility.getMouseX() >= 375/2 && InputUtility.getMouseX() <= 375/2 + 100){
+						if(!AudioUtility.isMute) AudioUtility.universalClickSound.play();
 						GameLogic.playerStatus.isEnd = true;
 						Main.titleScene();
 						
 					}
-//	NEXT STAGE
+//		NEXT STAGE
 					else if(InputUtility.getMouseX() >= 375/2 + 125 && InputUtility.getMouseX() <= 375/2 +225){
 //						new player up STAGE and STAR
+						if(!AudioUtility.isMute) AudioUtility.universalClickSound.play();
 						GameLogic.playerStatus = new PlayerStatus(GameLogic.playerStatus.getName(), GameLogic.playerStatus.getStage()+1, GameLogic.playerStatus.getMoney()+10);
 						Main.runGame();
 					}
 				}
 			}else {
-//		LOSE SCREEN
+//LOSE SCREEN
 				DrawingUtility.drawLoseScreen(g2,GameLogic.playerStatus.getTime() == 0);
 				if(InputUtility.getMouseY() >= 475/2 + 50 && InputUtility.getMouseY() <= 475/2 + 150 ){
 //		back to HOME
 					if(InputUtility.getMouseX() >= 375/2 && InputUtility.getMouseX() <= 375/2 + 100){
+						if(!AudioUtility.isMute) AudioUtility.universalClickSound.play();
 						GameLogic.playerStatus.isEnd = true;
 						Main.titleScene();
 					}
 //		PLAY AGAIN
 					if(InputUtility.getMouseX() >= 375/2 + 105 && InputUtility.getMouseX() <= 375/2 +225){
-//				new player up STAGE and STAR
+						if(!AudioUtility.isMute) AudioUtility.universalClickSound.play();
 						RenderableHolder.clear();
 						GameLogic.playerStatus = new PlayerStatus(GameLogic.playerStatus.getName(), GameLogic.playerStatus.getStage(), GameLogic.playerStatus.reMoney);  
 						Main.runGame();
@@ -223,21 +233,26 @@ public class GameScreen extends JComponent {
 				}
 			}
 			
-		}else if(GameLogic.playerStatus.isPause() ){
-//PAUSE SCREEN
+		}
+		
+//PAUSE SCREEN		
+		else if(GameLogic.playerStatus.isPause() ){
+
 			DrawingUtility.drawPauseScreen(g2);
 			if(InputUtility.isMouseLeftDownTrigger()){
 				InputUtility.setMouseLeftDownTrigger(false);
 				if(InputUtility.getMouseY() >= 475/2+125 && InputUtility.getMouseY() <= 475/2+225){
 //		back to HOME
 					if(InputUtility.getMouseX() >= 375/2 && InputUtility.getMouseX() <= 375/2+100){
+						if(!AudioUtility.isMute) AudioUtility.universalClickSound.play();
 						GameLogic.playerStatus.isEnd = true;
 						Main.titleScene();
 					}
 //		sound
 					if(InputUtility.getMouseX() >= 125+375/2 && InputUtility.getMouseX() <= 225+375/2){
-						DrawingUtility.isMute = !DrawingUtility.isMute;
-						if(!DrawingUtility.isMute){
+						if(!AudioUtility.isMute) AudioUtility.universalClickSound.play();
+						AudioUtility.isMute = !AudioUtility.isMute;
+						if(!AudioUtility.isMute){
 							synchronized (AudioUtility.bgm) {
 								AudioUtility.bgm.notifyAll();
 							}
@@ -246,13 +261,14 @@ public class GameScreen extends JComponent {
 					
 				}
 				if(InputUtility.getMouseY() >= 475/2 && InputUtility.getMouseY() <= 475/2+100){
-//		CONTINUE
+//		continue
 					if(InputUtility.getMouseX() >= 125+375/2 && InputUtility.getMouseX() <= 225+375/2){
+						if(!AudioUtility.isMute) AudioUtility.universalClickSound.play();
 						GameLogic.playerStatus.setPause(false);
 					}
-//		PLAY THIS STAGE AGAIN
+//		PLAY AGAIN
 					if(InputUtility.getMouseX() >= 375/2 && InputUtility.getMouseX() <= 375/2+100){
-
+						if(!AudioUtility.isMute) AudioUtility.universalClickSound.play();
 						RenderableHolder.clear();
 						GameLogic.playerStatus.setPause(false);
 						GameLogic.playerStatus = new PlayerStatus(GameLogic.playerStatus.getName(), GameLogic.playerStatus.getStage(), GameLogic.playerStatus.reMoney);  
@@ -262,8 +278,41 @@ public class GameScreen extends JComponent {
 				}
 			}
 		}
-	
-//		System.out.println("   down "+InputUtility.isMouseLeftDown()+"   trigger " + InputUtility.isMouseLeftDownTrigger());
+
+//		ACTION WHEN MOUSE OVER WHEN GAME PAUSE OR END
+		
+		AlphaComposite tran = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f);
+		g2.setComposite(tran);
+		g2.setColor(Color.WHITE);
+		
+		if(GameLogic.playerStatus.isEnd){
+			if(mouseOverY >= 475/2 + 50 && mouseOverY <= 475/2 + 150 ){
+				if((mouseOverX >= 375/2 && mouseOverX <= 375/2 + 100)){
+					g2.fillRoundRect(375/2, 475/2 + 50, 100, 100, 40, 40);
+				}
+				if((mouseOverX >= 375/2+125 && mouseOverX <= 375/2 + 225)){
+					g2.fillRoundRect(375/2+125, 475/2 + 50, 100, 100, 40, 40);
+				}
+			}
+		}	
+		if (GameLogic.playerStatus.isPause()){
+			if(mouseOverY >= 475/2 && mouseOverY <= 475/2 + 100){
+				if((mouseOverX >= 375/2 && mouseOverX <= 375/2 + 100)){
+					g2.fillRoundRect(375/2, 475/2, 100, 100, 40, 40);
+				}
+				if((mouseOverX >= 375/2+125 && mouseOverX <= 375/2 + 225)){
+					g2.fillRoundRect(375/2+125, 475/2, 100, 100, 40, 40);
+				}
+			}
+			if(mouseOverY >= 475/2 + 125 && mouseOverY <= 475/2 + 225 ){
+				if((mouseOverX >= 375/2 && mouseOverX <= 375/2 + 100)){
+					g2.fillRoundRect(375/2, 475/2+125, 100, 100, 40, 40);
+				}
+				if((mouseOverX >= 375/2+125 && mouseOverX <= 375/2 + 225)){
+					g2.fillRoundRect(375/2+125, 475/2+125, 100, 100, 40, 40);
+				}
+			}
+		}
 		
 	}
 	

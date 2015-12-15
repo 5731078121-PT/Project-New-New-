@@ -49,7 +49,7 @@ public class DuckFrozen extends Duck{
 		if(bought&&haveDragon){
 			if(eggDelay == eggDelayCounter){
 				eggDelayCounter = 0;
-				if(!DrawingUtility.isMute) AudioUtility.layEggSound.play();
+				if(!AudioUtility.isMute) AudioUtility.layEggSound.play();
 				RenderableHolder.getInstance().add(new EggFrozen(this));
 			}else eggDelayCounter++;
 			if(hp == 0 ){
@@ -72,35 +72,23 @@ public class DuckFrozen extends Duck{
 		}else tran = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float) hp/hpMax);
 		g.setComposite(tran);
 		
-		DrawingUtility.drawFrozenDuck(g, x, y, i);
+		DrawingUtility.drawFrozenDuck(g, x, y, currentFrame);
 //		g.drawString(Integer.toString(column), x, y);
 //		g.drawString(Integer.toString(hp), x, y+10);
 		if(GameLogic.playerStatus.isPause() || GameLogic.playerStatus.isEnd) return;
 		if(bought){
 			
-			if(count==2){
-				i++;
-				count = 0;
-			}else count++;
-			if(i == 9) i = 1;
+			if(frameDelayCount==2){
+				currentFrame++;
+				frameDelayCount = 0;
+			}else frameDelayCount++;
+			if(currentFrame == 9) currentFrame = 1;
 		}
 		if(!(GameLogic.playerStatus.getStage()>this.stageLock)){
 			DrawingUtility.drawLockDuck(g, defaultY, stageLock);
 			
 		}
 	}
-
-	@Override
-	public boolean isVisible() {
-		// TODO Auto-generated method stub
-		return !dead;
-	}
-
-	@Override
-	public int getZ() {
-		// TODO Auto-generated method stub
-		return z;
-	}	
 
 
 }

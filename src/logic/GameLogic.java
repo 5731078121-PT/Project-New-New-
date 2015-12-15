@@ -10,7 +10,6 @@ import render.IRenderable;
 import render.PlayingArea;
 import render.RenderableHolder;
 import utility.AudioUtility;
-import utility.DrawingUtility;
 import utility.InputUtility;
 import utility.RandomUtility;
 
@@ -100,23 +99,23 @@ public class GameLogic {
 			
 		}
 		if(newDuck){
-			if(!DrawingUtility.isMute) AudioUtility.universalClickSound.play();
+			if(!AudioUtility.isMute) AudioUtility.universalClickSound.play();
 			this.createDuck();
 		}
 		if(newSuperDuck){
-			if(!DrawingUtility.isMute) AudioUtility.universalClickSound.play();
+			if(!AudioUtility.isMute) AudioUtility.universalClickSound.play();
 			this.createSuperDuck();
 		}
 		if(newShell){
-			if(!DrawingUtility.isMute) AudioUtility.universalClickSound.play();
+			if(!AudioUtility.isMute) AudioUtility.universalClickSound.play();
 			this.createShell();
 		}
 		if(newAggressiveDuck){
-			if(!DrawingUtility.isMute) AudioUtility.universalClickSound.play();
+			if(!AudioUtility.isMute) AudioUtility.universalClickSound.play();
 			this.createAggressiveDuck();
 		}
 		if(newFrozenDuck){
-			if(!DrawingUtility.isMute) AudioUtility.universalClickSound.play();
+			if(!AudioUtility.isMute) AudioUtility.universalClickSound.play();
 			this.createFrozenDuck();
 		}
 		

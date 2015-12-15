@@ -69,23 +69,25 @@ public class GameBegin extends JComponent {
 				super.mouseClicked(e);
 //				System.out.println("click");
 				if(e.getButton() == 1){
-					if(isIntroGame) {
-						if(620 <= e.getY() && e.getY() <= 645){
-							if(50 <= e.getX() && e.getX() <= 75){
 
-								if(!DrawingUtility.isMute) AudioUtility.universalClickSound.play();
-								isIntroGame = false;
+//					CLICK INFO BUT
+					if(e.getY() >= 650 && e.getY() <= 650+125/3){
+						if(e.getX() >= 590-125/3 && e.getX() <= 590){
+
+							if(!AudioUtility.isMute) AudioUtility.universalClickSound.play();
+							isIntroGame = !isIntroGame;
 								
-							}
 						}
-						return;
 					}
+					
+					if(isIntroGame) return;
+
 					if(475 <= e.getY() && e.getY() <= 575){
 						
 //						click PLAY but
 						if(375/2+125 <= e.getX() && e.getX() <= 375/2+225){
 							if(index != -1 && !name[index].equalsIgnoreCase("add name")){
-								if(!DrawingUtility.isMute) AudioUtility.universalClickSound.play();
+								if(!AudioUtility.isMute) AudioUtility.universalClickSound.play();
 								GameLogic.playerStatus = new PlayerStatus(name[index], state[index], star[index]);
 								GameSaveUtility.recordData();
 								InputUtility.setMouseLeftDown(false);
@@ -96,7 +98,7 @@ public class GameBegin extends JComponent {
 //						click BIN but
 						else if(375/2 <= e.getX() && e.getX() <= 375/2+100){
 							if(index != -1){
-								if(!DrawingUtility.isMute) AudioUtility.universalClickSound.play();
+								if(!AudioUtility.isMute) AudioUtility.universalClickSound.play();
 //								System.out.println("binbin");
 								GameSaveUtility.removePlayer(index);
 								String str = GameSaveUtility.updateData();
@@ -110,31 +112,31 @@ public class GameBegin extends JComponent {
 										
 					if(375/2 <= InputUtility.getMouseX() && InputUtility.getMouseX() <= 375/2+225){
 						if(125 <= InputUtility.getMouseY() && InputUtility.getMouseY() <= 125+60){
-							if(!DrawingUtility.isMute) AudioUtility.universalClickSound.play();
+							if(!AudioUtility.isMute) AudioUtility.universalClickSound.play();
 							mouseClickX = e.getX();
 							mouseClickY = e.getY();
 							index = 0;
 							noName(index);
 						}else if(125+1*65 <= InputUtility.getMouseY() && InputUtility.getMouseY() <= 125+60*2){
-							if(!DrawingUtility.isMute) AudioUtility.universalClickSound.play();
+							if(!AudioUtility.isMute) AudioUtility.universalClickSound.play();
 							mouseClickX = e.getX();
 							mouseClickY = e.getY();
 							index = 1;
 							noName(index);
 						}else if(125+2*65 <= InputUtility.getMouseY() && InputUtility.getMouseY() <= 125+60*3){
-							if(!DrawingUtility.isMute) AudioUtility.universalClickSound.play();
+							if(!AudioUtility.isMute) AudioUtility.universalClickSound.play();
 							mouseClickX = e.getX();
 							mouseClickY = e.getY();
 							index = 2;
 							noName(index);
 						}else if(125+3*65 <= InputUtility.getMouseY() && InputUtility.getMouseY() <= 125+60*4){
-							if(!DrawingUtility.isMute) AudioUtility.universalClickSound.play();
+							if(!AudioUtility.isMute) AudioUtility.universalClickSound.play();
 							mouseClickX = e.getX();
 							mouseClickY = e.getY();
 							index = 3;
 							noName(index);
 						}else if(125+4*65 <= InputUtility.getMouseY() && InputUtility.getMouseY() <= 125+60*5){
-							if(!DrawingUtility.isMute) AudioUtility.universalClickSound.play();
+							if(!AudioUtility.isMute) AudioUtility.universalClickSound.play();
 							mouseClickX = e.getX();
 							mouseClickY = e.getY();
 							index = 4;
@@ -148,20 +150,15 @@ public class GameBegin extends JComponent {
 						index = -1;
 					}
 					
-
+					//back but
 					if(e.getY() >= 650 && e.getY() <= 650+125/3){
-						//back but
+						
 						if(e.getX() >= 10 && e.getX() <= 10+125/3){
 
-							if(!DrawingUtility.isMute) AudioUtility.universalClickSound.play();
+							if(!AudioUtility.isMute) AudioUtility.universalClickSound.play();
 							Main.titleScene();
 						}
-						//info but
-						if(e.getX() >= 590-125/3 && e.getX() <= 590){
 
-							if(!DrawingUtility.isMute) AudioUtility.universalClickSound.play();
-							isIntroGame = true;
-						}
 					}
 					
 					
@@ -207,6 +204,7 @@ public class GameBegin extends JComponent {
 		try{
 			 name = JOptionPane.showInputDialog(new JFrame(), "Enter your name", "Welcome", JOptionPane.QUESTION_MESSAGE);
 			 name = name.toUpperCase();
+			 if(name.length() > 7) name = name.substring(0, 7);
 			 GameSaveUtility.addPlayer(name);
 			 String str = GameSaveUtility.updateData();
 			 data = str.split("\n");
@@ -268,10 +266,7 @@ public class GameBegin extends JComponent {
 			}
 		}
 		
-		/*//button PLAY and BIN
-		g2.setColor(Color.DARK_GRAY);
-		g2.fillRoundRect(200, 450, 95, 60, 30, 30);
-		g2.fillRoundRect(305, 450, 95, 60, 30, 30);*/
+
 		g2.setFont(DrawingUtility.standardFont);
 		
 //		button PLAYER'S NAME
@@ -288,6 +283,8 @@ public class GameBegin extends JComponent {
 		
 		AlphaComposite tran = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f);
 		g2.setComposite(tran);
+
+		
 //		action when mouse over
 		g2.setColor(Color.WHITE);
 		if(475 <= InputUtility.getMouseY() && InputUtility.getMouseY() <= 575 && !isIntroGame){
@@ -301,7 +298,7 @@ public class GameBegin extends JComponent {
 		}
 		
 		
-		else if(InputUtility.getMouseY() >= 650 && InputUtility.getMouseY() <= 650+125/3 && !isIntroGame){
+		else if(InputUtility.getMouseY() >= 650 && InputUtility.getMouseY() <= 650+125/3 ){
 			
 			//INTROGAME BUT
 			if(InputUtility.getMouseX() >= 590-125/3 && InputUtility.getMouseX() <= 590){
@@ -309,7 +306,7 @@ public class GameBegin extends JComponent {
 			}
 			
 			//BACK BUT
-			if(InputUtility.getMouseX() >= 10 && InputUtility.getMouseX() <= 10+125/3){
+			if(InputUtility.getMouseX() >= 10 && InputUtility.getMouseX() <= 10+125/3 && !isIntroGame){
 				g2.drawImage(DrawingUtility.backCover, DrawingUtility.resizeBg, 10, 650);
 			}
 		}
@@ -334,13 +331,6 @@ public class GameBegin extends JComponent {
 		
 		if(isIntroGame){
 			DrawingUtility.drawIntroGame(g2);
-			if(620 <= InputUtility.getMouseY() && InputUtility.getMouseY() <= 645){
-				if(50 <= InputUtility.getMouseX() && InputUtility.getMouseX() <= 75){
-					tran = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f);
-					g2.setComposite(tran);
-					g2.drawImage(DrawingUtility.backCover, DrawingUtility.resizeHalf, 50, 620);
-				}
-			}
 		}
 		
 		

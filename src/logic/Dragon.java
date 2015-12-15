@@ -37,7 +37,7 @@ public class Dragon implements IRenderable{
 	
 	public void attackDuck(Duck duck){
 		if(duck.hp%50 == 0) {
-			if(!DrawingUtility.isMute) AudioUtility.dragonBiteSound.play();
+			if(!AudioUtility.isMute) AudioUtility.dragonBiteSound.play();
 		}
 		duck.decreaseHP(this.power);
 		y += speed;
@@ -46,7 +46,7 @@ public class Dragon implements IRenderable{
 	
 	public void attackShell(Shell shell){
 		if(shell.hp%50 == 0) {
-			if(!DrawingUtility.isMute) AudioUtility.dragonBiteSound.play();
+			if(!AudioUtility.isMute) AudioUtility.dragonBiteSound.play();
 		}
 		shell.decreaseHP(this.power);
 		y+=speed;

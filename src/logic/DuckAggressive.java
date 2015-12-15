@@ -87,7 +87,7 @@ public class DuckAggressive extends Duck{
 		}else tran = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float) hp/hpMax);
 		g.setComposite(tran);
 		
-		DrawingUtility.drawAggresDuck(g, x, y, i);
+		DrawingUtility.drawAggresDuck(g, x, y, currentFrame);
 //		g.drawString(Integer.toString(column), x, y);
 //		g.drawString(Integer.toString(hp), x, y+10);
 		
@@ -95,20 +95,20 @@ public class DuckAggressive extends Duck{
 		if(bought){
 			if(isJig){
 				System.out.println("draw Jig");
-				if(i < 10) i = 10;
-				if(count == 2){
-					i++;
-					count = 0;
-				}else count++;
-				if(i == 14) i = 10;
+				if(currentFrame < 10) currentFrame = 10;
+				if(frameDelayCount == 2){
+					currentFrame++;
+					frameDelayCount = 0;
+				}else frameDelayCount++;
+				if(currentFrame == 14) currentFrame = 10;
 			}
 			else{
-				if(i>9) i = 9;
-				if(count==2){
-					i++;
-					count = 0;
-				}else count++;
-				if(i == 9) i = 1;				
+				if(currentFrame>9) currentFrame = 9;
+				if(frameDelayCount==2){
+					currentFrame++;
+					frameDelayCount = 0;
+				}else frameDelayCount++;
+				if(currentFrame == 9) currentFrame = 1;				
 			}
 		}
 		if(!(GameLogic.playerStatus.getStage()>this.stageLock)){
@@ -121,7 +121,7 @@ public class DuckAggressive extends Duck{
 	
 	public void attackDragon(Dragon dragon){
 		if(dragon.hp%50 == 0) {
-			if(!DrawingUtility.isMute) AudioUtility.duckBiteSound.play();
+			if(!AudioUtility.isMute) AudioUtility.duckBiteSound.play();
 		}
 		dragon.decreaseHP(this.power);
 		System.out.println("in");

@@ -22,7 +22,6 @@ public class DrawingUtility {
 	public static final Font standardFont = new Font("Comic Sans MS", Font.BOLD, 30);
 	public static final Font nomalFont = new Font("Comic Sans MS", Font.BOLD, 15);
 	public static final Font smallFont = new Font("Tahoma", Font.PLAIN, 10);
-	public static boolean isMute = false;
 	
 	protected static BufferedImage getImage(String directory){
 		ClassLoader loader = DrawingUtility.class.getClassLoader();
@@ -62,6 +61,7 @@ public class DrawingUtility {
 	public static BufferedImage[] bg = new BufferedImage[7];
 	
 	public static BufferedImage[] startBG = new BufferedImage[4];
+	public static BufferedImage startInfoGame = getImage("res/img/infoGame.png");
 	public static BufferedImage startInfoBut = getImage("res/img/info-but.png");
 	public static BufferedImage startDragon = getImage("res/img/start-dragon-all.png");
 	public static BufferedImage startButton = getImage("res/img/start-but-all.png");
@@ -196,7 +196,7 @@ public class DrawingUtility {
 		
 		g.drawImage(play, resizeHalf, 125+375/2, 475/2);
 		
-		if(isMute) g.drawImage(sound.getSubimage(200, 0, 200, 200), resizeHalf, 125+375/2, 475/2+125);
+		if(AudioUtility.isMute) g.drawImage(sound.getSubimage(200, 0, 200, 200), resizeHalf, 125+375/2, 475/2+125);
 		else g.drawImage(sound.getSubimage(0, 0, 200, 200), resizeHalf, 125+375/2, 475/2+125);
 		
 		g.drawImage(home, resizeHalf, 375/2, 475/2+125);
@@ -306,10 +306,21 @@ public class DrawingUtility {
 		g.drawImage(startButtonUse, null, 0, 0);
 		
 		
-		tran = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.9f);
+		tran = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1);
 		g.setComposite(tran);
 		
 		g.drawImage(startInfoBut, resizeBg, 10, 650);
+		if(AudioUtility.isMute) g.drawImage(sound.getSubimage(200, 0, 200, 200), resizeDragon, 560, 660);
+		else g.drawImage(sound.getSubimage(0, 0, 200, 200), resizeDragon, 560, 660);
+		
+	}
+	
+	public static void drawInfoGame(Graphics2D g){
+		
+		AlphaComposite tran = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.92f);
+		g.setComposite(tran);
+		g.drawImage(startInfoGame, null, 0, 0);
+
 	}
 	
 	public static void drawGameBegin(Graphics2D g){
@@ -345,8 +356,7 @@ public class DrawingUtility {
 		AlphaComposite tran = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.92f);
 		g.setComposite(tran);
 		g.drawImage(introGame, null, 0, 0);
-		
-		g.drawImage(back, resizeHalf, 50, 620);
+
 	}
 	
 	public static void drawLockDuck(Graphics2D g, int y, int stage){
