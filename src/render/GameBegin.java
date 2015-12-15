@@ -83,7 +83,7 @@ public class GameBegin extends JComponent {
 						
 //						click PLAY but
 						if(375/2+125 <= e.getX() && e.getX() <= 375/2+225){
-							if(index != -1 && !name[index].equals("no name")){
+							if(index != -1 && !name[index].equalsIgnoreCase("add name")){
 								if(!DrawingUtility.isMute) AudioUtility.universalSound.play();
 								GameLogic.playerStatus = new PlayerStatus(name[index], state[index], star[index]);
 								GameSaveUtility.recordData();
@@ -201,7 +201,7 @@ public class GameBegin extends JComponent {
 	}
 	
 	private void noName(int index){
-		if(!name[index].equals("no name")) return ;
+		if(!name[index].equals("add name")) return ;
 		String name = JOptionPane.showInputDialog(new JFrame(), "Enter your name", "Welcome", JOptionPane.QUESTION_MESSAGE);
 		name = name.toUpperCase();
 		GameSaveUtility.addPlayer(name);
@@ -216,7 +216,7 @@ public class GameBegin extends JComponent {
 	private void updateData(){
 		for(int i = 0; i<5; i++){
 			name[i] = data[i].substring(0, data[i].indexOf(":"));
-			if(name[i].equals("")) name[i] = "no name";
+//			if(name[i].equals("")) name[i] = "no name";
 			state[i] = Integer.parseInt(data[i].substring(data[i].indexOf(":")+1, data[i].indexOf(";")));
 			data[i] = data[i].trim();
 			star[i] = Integer.parseInt(data[i].substring(data[i].indexOf(";")+1, data[i].length()));

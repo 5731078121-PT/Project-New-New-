@@ -100,7 +100,7 @@ public class GameSaveUtility {
 	public static void addPlayer(String name){
 		name = name.toUpperCase();
 		for(int i = 0; i<gameSaveRecord.length; i++){
-			if(gameSaveRecord[i].name.equals("")){
+			if(gameSaveRecord[i].name.equals("add name")){
 				gameSaveRecord[i].name = name;
 				gameSaveRecord[i].star = 10;
 				gameSaveRecord[i].state = 1;
@@ -112,8 +112,8 @@ public class GameSaveUtility {
 	}
 	
 	public static void removePlayer(int i){
-		System.out.println("remove");
-		gameSaveRecord[i].name = ""; 
+//		System.out.println("remove");
+		gameSaveRecord[i].name = "add name"; 
 	}
 	
 	public static void updatePlayer(String name, int state, int star){

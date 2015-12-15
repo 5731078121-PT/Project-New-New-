@@ -9,6 +9,7 @@ import render.IRenderable;
 import render.RenderableHolder;
 import utility.AudioUtility;
 import utility.DrawingUtility;
+import utility.GameSaveUtility;
 
 public class PlayerStatus implements IRenderable{
 	public static int timeMax = 300*10;
@@ -111,6 +112,9 @@ public class PlayerStatus implements IRenderable{
 				}
 			}
 			this.isWin = true;
+//			UPDATE PLAYER STATE and STAR
+			GameSaveUtility.updatePlayer(GameLogic.playerStatus.getName(), GameLogic.playerStatus.getState(), GameLogic.playerStatus.getMoney());
+			GameSaveUtility.recordData();
 		}
 		
 		time -= 1;
