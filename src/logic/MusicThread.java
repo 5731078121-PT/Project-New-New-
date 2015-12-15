@@ -1,14 +1,18 @@
 package logic;
 
+import java.applet.AudioClip;
+
 import utility.AudioUtility;
 import utility.DrawingUtility;
 
 public class MusicThread implements Runnable{
 	private int soundLength, count;
+	private AudioClip audio;
 	
-	public MusicThread() {
+	public MusicThread(AudioClip audio, int soundLength) {
 		// TODO Auto-generated constructor stub
-		this.soundLength = 24800;
+		this.audio = audio;
+		this.soundLength = soundLength;
 		count = 1;
 	}
 	
@@ -21,19 +25,19 @@ public class MusicThread implements Runnable{
 				Thread.sleep(10);
 			}catch(InterruptedException e){}
 			if(DrawingUtility.isMute){
-				AudioUtility.bgm.stop();
-				synchronized (AudioUtility.bgm) {
+				audio.stop();
+				synchronized (audio) {
 					try{
-						AudioUtility.bgm.wait();
+						audio.wait();
 					}catch(InterruptedException e){	}
 				}
-				AudioUtility.bgm.play();
-				count = 24800;
+				audio.play();
+				count = soundLength;
 			}
 			count--;
 			if(count == 0){
-				AudioUtility.bgm.play();
-				count = 24800;
+				audio.play();
+				count = soundLength;
 			}
 			
 		}

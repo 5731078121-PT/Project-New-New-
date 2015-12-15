@@ -22,8 +22,8 @@ public class DragonSuper extends Dragon{
 		tran = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float) hp/hpMax);
 		g.setComposite(tran);
 		
-		g.drawString(Integer.toString(column), x, y);
-		g.drawString(Integer.toString(hp), x, y+10);
+//		g.drawString(Integer.toString(column), x, y);
+//		g.drawString(Integer.toString(hp), x, y+10);
 
 		DrawingUtility.drawSuperDragon(g, x, y, i);
 		if(isFrozen){

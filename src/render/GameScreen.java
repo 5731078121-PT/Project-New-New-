@@ -1,18 +1,17 @@
 package render;
 
-import input.InputUtility;
 import logic.Dragon;
 import logic.Duck;
 import logic.DuckAggressive;
 import logic.GameLogic;
 import logic.PlayerStatus;
-import logic.RandomUtility;
 import main.Main;
 import utility.AudioUtility;
 import utility.DrawingUtility;
 import utility.GameSaveUtility;
+import utility.InputUtility;
+import utility.RandomUtility;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -22,7 +21,6 @@ import java.awt.event.MouseMotionListener;
 
 import javax.swing.JComponent;
 
-import com.sun.media.jfxmedia.events.PlayerStateEvent.PlayerState;
 
 public class GameScreen extends JComponent {
 	public static final int WIDTH = 600;
@@ -187,22 +185,22 @@ public class GameScreen extends JComponent {
 			if(GameLogic.playerStatus.isPause()) return;
 			if(GameLogic.playerStatus.isWin){
 //WIN SCREEN
-				GameSaveUtility.updatePlayer(GameLogic.playerStatus.getName(), GameLogic.playerStatus.getState(), GameLogic.playerStatus.getMoney());
+				GameLogic.playerStatus.reMoney = GameLogic.playerStatus.getMoney();
+				GameSaveUtility.updatePlayer(GameLogic.playerStatus.getName(), GameLogic.playerStatus.getStage(), GameLogic.playerStatus.getMoney());
 				GameSaveUtility.recordData();
-				DrawingUtility.drawWinScreen(g2);
+				DrawingUtility.drawWinScreen(g2, GameLogic.playerStatus.getStage());
 //				g2.fillRect(375/2, 475/2 + 50, 100, 100);
 				if(InputUtility.getMouseY() >= 475/2 + 50 && InputUtility.getMouseY() <= 475/2 + 150 ){
 //	back to HOME
 					if(InputUtility.getMouseX() >= 375/2 && InputUtility.getMouseX() <= 375/2 + 100){
 						GameLogic.playerStatus.isEnd = true;
-						System.out.println("in");
 						Main.titleScene();
 						
 					}
 //	NEXT STAGE
-					else if(InputUtility.getMouseX() >= 375/2 + 125 && InputUtility.getMouseX() <= 375/2 +205){
+					else if(InputUtility.getMouseX() >= 375/2 + 125 && InputUtility.getMouseX() <= 375/2 +225){
 //						new player up STAGE and STAR
-						GameLogic.playerStatus = new PlayerStatus(GameLogic.playerStatus.getName(), GameLogic.playerStatus.getState()+1, GameLogic.playerStatus.getMoney()+10);
+						GameLogic.playerStatus = new PlayerStatus(GameLogic.playerStatus.getName(), GameLogic.playerStatus.getStage()+1, GameLogic.playerStatus.getMoney()+10);
 						Main.runGame();
 					}
 				}
@@ -216,11 +214,10 @@ public class GameScreen extends JComponent {
 						Main.titleScene();
 					}
 //		PLAY AGAIN
-					if(InputUtility.getMouseX() >= 375/2 + 105 && InputUtility.getMouseX() <= 375/2 +205){
+					if(InputUtility.getMouseX() >= 375/2 + 105 && InputUtility.getMouseX() <= 375/2 +225){
 //				new player up STAGE and STAR
 						RenderableHolder.clear();
-						int i = Main.gameBegin.getIndex();
-						GameLogic.playerStatus = new PlayerStatus(Main.gameBegin.getName(i), Main.gameBegin.getState(i), Main.gameBegin.getStar(i));  
+						GameLogic.playerStatus = new PlayerStatus(GameLogic.playerStatus.getName(), GameLogic.playerStatus.getStage(), GameLogic.playerStatus.reMoney);  
 						Main.runGame();
 					}
 				}
@@ -249,18 +246,16 @@ public class GameScreen extends JComponent {
 					
 				}
 				if(InputUtility.getMouseY() >= 475/2 && InputUtility.getMouseY() <= 475/2+100){
+//		CONTINUE
 					if(InputUtility.getMouseX() >= 125+375/2 && InputUtility.getMouseX() <= 225+375/2){
 						GameLogic.playerStatus.setPause(false);
 					}
-//					PLAY THIS STAGE AGAIN
+//		PLAY THIS STAGE AGAIN
 					if(InputUtility.getMouseX() >= 375/2 && InputUtility.getMouseX() <= 375/2+100){
-						String name = GameLogic.playerStatus.getName();
-						int state = GameLogic.playerStatus.getState();
-						int star = GameLogic.playerStatus.getMoney();
+
 						RenderableHolder.clear();
 						GameLogic.playerStatus.setPause(false);
-						int i = Main.gameBegin.getIndex();
-						GameLogic.playerStatus = new PlayerStatus(Main.gameBegin.getName(i), Main.gameBegin.getState(i), Main.gameBegin.getStar(i));
+						GameLogic.playerStatus = new PlayerStatus(GameLogic.playerStatus.getName(), GameLogic.playerStatus.getStage(), GameLogic.playerStatus.reMoney);  
 						Main.runGame();
 						
 					}

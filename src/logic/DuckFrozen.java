@@ -3,10 +3,10 @@ package logic;
 import java.awt.AlphaComposite;
 import java.awt.Graphics2D;
 
-import input.InputUtility;
 import render.RenderableHolder;
 import utility.AudioUtility;
 import utility.DrawingUtility;
+import utility.InputUtility;
 
 public class DuckFrozen extends Duck{
 
@@ -84,7 +84,7 @@ public class DuckFrozen extends Duck{
 			}else count++;
 			if(i == 9) i = 1;
 		}
-		if(!(GameLogic.playerStatus.getState()>this.stageLock)){
+		if(!(GameLogic.playerStatus.getStage()>this.stageLock)){
 			DrawingUtility.drawLockDuck(g, defaultY, stageLock);
 			
 		}

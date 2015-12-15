@@ -4,6 +4,7 @@ import java.awt.AlphaComposite;
 import java.awt.Graphics2D;
 
 import utility.DrawingUtility;
+import utility.RandomUtility;
 
 public class DragonSmall extends Dragon {
 
@@ -23,8 +24,8 @@ public class DragonSmall extends Dragon {
 		tran = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float) hp/hpMax);
 		g.setComposite(tran);
 
-		g.drawString(Integer.toString(column), x, y);
-		g.drawString(Integer.toString(hp), x, y+10);
+//		g.drawString(Integer.toString(column), x, y);
+//		g.drawString(Integer.toString(hp), x, y+10);
 		
 		DrawingUtility.drawSmallDragon(g, x, y, i);
 		if(isFrozen){

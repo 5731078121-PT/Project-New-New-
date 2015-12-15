@@ -14,13 +14,13 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import input.InputUtility;
 import logic.GameLogic;
 import logic.PlayerStatus;
 import main.Main;
 import utility.AudioUtility;
 import utility.DrawingUtility;
 import utility.GameSaveUtility;
+import utility.InputUtility;
 
 public class GameBegin extends JComponent {
 	private String[] data;
@@ -72,7 +72,7 @@ public class GameBegin extends JComponent {
 						if(620 <= e.getY() && e.getY() <= 645){
 							if(50 <= e.getX() && e.getX() <= 75){
 
-								if(!DrawingUtility.isMute) AudioUtility.universalSound.play();
+								if(!DrawingUtility.isMute) AudioUtility.universalClickSound.play();
 								isIntroGame = false;
 								
 							}
@@ -84,7 +84,7 @@ public class GameBegin extends JComponent {
 //						click PLAY but
 						if(375/2+125 <= e.getX() && e.getX() <= 375/2+225){
 							if(index != -1 && !name[index].equals("no name")){
-								if(!DrawingUtility.isMute) AudioUtility.universalSound.play();
+								if(!DrawingUtility.isMute) AudioUtility.universalClickSound.play();
 								GameLogic.playerStatus = new PlayerStatus(name[index], state[index], star[index]);
 								GameSaveUtility.recordData();
 								InputUtility.setMouseLeftDown(false);
@@ -95,7 +95,7 @@ public class GameBegin extends JComponent {
 //						click BIN but
 						else if(375/2 <= e.getX() && e.getX() <= 375/2+100){
 							if(index != -1){
-								if(!DrawingUtility.isMute) AudioUtility.universalSound.play();
+								if(!DrawingUtility.isMute) AudioUtility.universalClickSound.play();
 								System.out.println("binbin");
 								GameSaveUtility.removePlayer(index);
 								String str = GameSaveUtility.updateData();
@@ -109,31 +109,31 @@ public class GameBegin extends JComponent {
 										
 					if(375/2 <= InputUtility.getMouseX() && InputUtility.getMouseX() <= 375/2+225){
 						if(125 <= InputUtility.getMouseY() && InputUtility.getMouseY() <= 125+60){
-							if(!DrawingUtility.isMute) AudioUtility.universalSound.play();
+							if(!DrawingUtility.isMute) AudioUtility.universalClickSound.play();
 							mouseClickX = e.getX();
 							mouseClickY = e.getY();
 							index = 0;
 							noName(index);
 						}else if(125+1*65 <= InputUtility.getMouseY() && InputUtility.getMouseY() <= 125+60*2){
-							if(!DrawingUtility.isMute) AudioUtility.universalSound.play();
+							if(!DrawingUtility.isMute) AudioUtility.universalClickSound.play();
 							mouseClickX = e.getX();
 							mouseClickY = e.getY();
 							index = 1;
 							noName(index);
 						}else if(125+2*65 <= InputUtility.getMouseY() && InputUtility.getMouseY() <= 125+60*3){
-							if(!DrawingUtility.isMute) AudioUtility.universalSound.play();
+							if(!DrawingUtility.isMute) AudioUtility.universalClickSound.play();
 							mouseClickX = e.getX();
 							mouseClickY = e.getY();
 							index = 2;
 							noName(index);
 						}else if(125+3*65 <= InputUtility.getMouseY() && InputUtility.getMouseY() <= 125+60*4){
-							if(!DrawingUtility.isMute) AudioUtility.universalSound.play();
+							if(!DrawingUtility.isMute) AudioUtility.universalClickSound.play();
 							mouseClickX = e.getX();
 							mouseClickY = e.getY();
 							index = 3;
 							noName(index);
 						}else if(125+4*65 <= InputUtility.getMouseY() && InputUtility.getMouseY() <= 125+60*5){
-							if(!DrawingUtility.isMute) AudioUtility.universalSound.play();
+							if(!DrawingUtility.isMute) AudioUtility.universalClickSound.play();
 							mouseClickX = e.getX();
 							mouseClickY = e.getY();
 							index = 4;
@@ -152,13 +152,13 @@ public class GameBegin extends JComponent {
 						//back but
 						if(e.getX() >= 10 && e.getX() <= 10+125/3){
 
-							if(!DrawingUtility.isMute) AudioUtility.universalSound.play();
+							if(!DrawingUtility.isMute) AudioUtility.universalClickSound.play();
 							Main.titleScene();
 						}
 						//info but
 						if(e.getX() >= 590-125/3 && e.getX() <= 590){
 
-							if(!DrawingUtility.isMute) AudioUtility.universalSound.play();
+							if(!DrawingUtility.isMute) AudioUtility.universalClickSound.play();
 							isIntroGame = true;
 						}
 					}

@@ -4,10 +4,10 @@ import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-import input.InputUtility;
 import render.RenderableHolder;
 import utility.AudioUtility;
 import utility.DrawingUtility;
+import utility.InputUtility;
 
 public class DuckSuper extends Duck{
 	
@@ -87,7 +87,7 @@ public class DuckSuper extends Duck{
 			}else count++;
 			if(i == 9) i = 1;
 		}
-		if(!(GameLogic.playerStatus.getState()>this.stageLock)){
+		if(!(GameLogic.playerStatus.getStage()>this.stageLock)){
 			DrawingUtility.drawLockDuck(g, defaultY, stageLock);
 			
 		}

@@ -2,15 +2,7 @@ package utility;
 
 import java.applet.Applet;
 import java.applet.AudioClip;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.net.URISyntaxException;
 
-import javax.imageio.ImageIO;
-
-import logic.GameLogic;
-import main.Main;
-import render.RenderableHolder;
 
 public class AudioUtility {
 	
@@ -23,11 +15,11 @@ public class AudioUtility {
 		}
 	}
 	
-	public static AudioClip universalSound = getSound("res/sound/placedDuckSound.wav");
+	public static AudioClip universalClickSound = getSound("res/sound/placedDuckSound.wav");
 	public static AudioClip starSound = getSound("res/sound/star.wav");
 	public static AudioClip dragonBiteSound = getSound("res/sound/dragonBiteSound.wav");
 	public static AudioClip layEggSound = getSound("res/sound/layEggSound.wav");
 	public static AudioClip duckBiteSound = getSound("res/sound/duckJigSound.wav");
 	//public static AudioClip toNextSceneSound = getSound("res/sound/1Sound.wav");
-	public static AudioClip bgm = getSound("res/sound/testThread.wav");
+	public static AudioClip bgm = getSound("res/sound/background-music-new.wav");
 }

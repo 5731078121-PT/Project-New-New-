@@ -234,7 +234,7 @@ public class DrawingUtility {
 		g.drawImage(replay, resizeHalf, 375/2 + 125, 475/2 + 50);
 	}
 	
-	public static void drawWinScreen(Graphics2D g){
+	public static void drawWinScreen(Graphics2D g, int stage){
 		AlphaComposite tran = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.7f);
 		g.setComposite(tran);
 		
@@ -246,8 +246,11 @@ public class DrawingUtility {
 		g.setComposite(noTran);
 		
 		g.setFont(standardFont);
-		Rectangle2D rec = g.getFontMetrics().getStringBounds("YOU WIN!", g);
-		g.drawString("YOU WIN!", (int) (GameScreen.WIDTH/2 - rec.getWidth()/2),475/2 + 25);
+		
+		Rectangle2D rec = g.getFontMetrics().getStringBounds("STAGE "+stage+" CLEAR", g);
+		g.drawString("STAGE "+stage+" CLEAR", (int) (GameScreen.WIDTH/2 - rec.getWidth()/2),475/2 + 25);
+		rec = g.getFontMetrics().getStringBounds("YOU WIN!", g);
+		g.drawString("YOU WIN!", (int) (GameScreen.WIDTH/2 - rec.getWidth()/2),475/2 - 25);
 		g.setFont(smallFont);
 		
 		g.drawImage(home, resizeHalf, 375/2, 475/2+50);
