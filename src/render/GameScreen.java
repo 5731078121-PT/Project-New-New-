@@ -187,7 +187,7 @@ public class GameScreen extends JComponent {
 			}
 		}
 		if(GameLogic.playerStatus.isEnd){
-//			RenderableHolder.clear();
+			RenderableHolder.clear();
 			if(GameLogic.playerStatus.isPause()) return;
 			if(GameLogic.playerStatus.isWin){
 //WIN SCREEN

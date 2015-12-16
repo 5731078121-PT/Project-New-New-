@@ -39,7 +39,7 @@ public class DragonSuper extends Dragon{
 		
 		
 		if(GameLogic.playerStatus.isPause() || GameLogic.playerStatus.isEnd) return;
-		if(frameDelayCount==0){
+		if(frameDelayCount==2){
 			currentFrame++;
 			frameDelayCount = 0;
 		}else frameDelayCount++;

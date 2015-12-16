@@ -187,8 +187,8 @@ public class GameSaveUtility {
 
 				}catch(StateParsingException e){
 
-					System.err.println("Error parsing line " + (i+1) + ", " + e.getMessage());
-					gameSaveRecord[i] = new GameSaveRecord("ERROR_RECORD", 0, 0);
+//					System.err.println("Error parsing line " + (i+1) + ", " + e.getMessage());
+					gameSaveRecord[i] = new GameSaveRecord("add name", 0, 0);
 				}
 			}
 

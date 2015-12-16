@@ -90,65 +90,75 @@ public class DrawingUtility {
 	
 	
 //	public static int duckCount = 0;
-	public static final AffineTransformOp resizeDuck = new AffineTransformOp(AffineTransform.getScaleInstance(0.75/2, 0.75/2), AffineTransformOp.TYPE_BICUBIC);
-	public static final AffineTransformOp resizeDragon = new AffineTransformOp(AffineTransform.getScaleInstance(0.75/5, 0.75/5), AffineTransformOp.TYPE_BICUBIC);
-	public static final AffineTransformOp resizeStar = new AffineTransformOp(AffineTransform.getScaleInstance(0.3, 0.3), AffineTransformOp.TYPE_BICUBIC);
-	public static final AffineTransformOp resizeEgg = new AffineTransformOp(AffineTransform.getScaleInstance(0.25, 0.25), AffineTransformOp.TYPE_BICUBIC);
-	public static final AffineTransformOp resizeShell = new AffineTransformOp(AffineTransform.getScaleInstance(0.75/2, 0.75/2), AffineTransformOp.TYPE_BICUBIC);
-	public static final AffineTransformOp resizeBg = new AffineTransformOp(AffineTransform.getScaleInstance(1/1.2, 1/1.2), AffineTransformOp.TYPE_BICUBIC);
-	public static final AffineTransformOp resizeHalf = new AffineTransformOp(AffineTransform.getScaleInstance(0.5,0.5), AffineTransformOp.TYPE_BICUBIC);
+//	public static final AffineTransformOp resizeDuck = new AffineTransformOp(AffineTransform.getScaleInstance(0.75/2, 0.75/2), AffineTransformOp.TYPE_BICUBIC);
+//	public static final AffineTransformOp resizeDragon = new AffineTransformOp(AffineTransform.getScaleInstance(0.75/5, 0.75/5), AffineTransformOp.TYPE_BICUBIC);
+//	public static final AffineTransformOp resizeStar = new AffineTransformOp(AffineTransform.getScaleInstance(0.3, 0.3), AffineTransformOp.TYPE_BICUBIC);
+//	public static final AffineTransformOp resizeEgg = new AffineTransformOp(AffineTransform.getScaleInstance(0.25, 0.25), AffineTransformOp.TYPE_BICUBIC);
+//	public static final AffineTransformOp resizeShell = new AffineTransformOp(AffineTransform.getScaleInstance(0.75/2, 0.75/2), AffineTransformOp.TYPE_BICUBIC);
+//	public static final AffineTransformOp resizeBg = new AffineTransformOp(AffineTransform.getScaleInstance(1/1.2, 1/1.2), AffineTransformOp.TYPE_BICUBIC);
+//	public static final AffineTransformOp resizeHalf = new AffineTransformOp(AffineTransform.getScaleInstance(0.5,0.5), AffineTransformOp.TYPE_BICUBIC);
+//	public static final AffineTransformOp resizeTwoFive = new AffineTransformOp(AffineTransform.getScaleInstance(0.4,0.4), AffineTransformOp.TYPE_BICUBIC);
+	
+	public static final AffineTransformOp resizeDuck = null;
+	public static final AffineTransformOp resizeDragon = null;
+	public static final AffineTransformOp resizeStar = null;
+	public static final AffineTransformOp resizeEgg = null;
+	public static final AffineTransformOp resizeShell = null;
+	public static final AffineTransformOp resizeBg = null;
+	public static final AffineTransformOp resizeHalf = null;
 	public static final AffineTransformOp resizeTwoFive = new AffineTransformOp(AffineTransform.getScaleInstance(0.4,0.4), AffineTransformOp.TYPE_BICUBIC);
+	public static final AffineTransformOp resizeBut = new AffineTransformOp(AffineTransform.getScaleInstance(1/1.2, 1/1.2), AffineTransformOp.TYPE_BICUBIC);
 	
 	public static void drawBg(Graphics2D g, int i){
 		g.drawImage(bg[i], resizeBg, 0, 0);
 	}
 	
 	public static void drawDuck(Graphics2D g, int x, int y, int duckCount){
-		BufferedImage duckUse = duckPic.getSubimage(duckCount*200, 0, 200, 200);
+		BufferedImage duckUse = duckPic.getSubimage(duckCount*75, 0, 75, 75);
 		g.drawImage(duckUse, resizeDuck, x, y);
 		
 	}
 	
 	public static void drawSuperDuck(Graphics2D g, int x, int y, int duckCount){
-		BufferedImage duckUse = superDuckPic.getSubimage(duckCount*200, 0, 200, 200);
+		BufferedImage duckUse = superDuckPic.getSubimage(duckCount*75, 0, 75, 75);
 		g.drawImage(duckUse, resizeDuck, x, y);
 	}
 	
 	public static void drawAggresDuck(Graphics2D g, int x, int y, int i){
-		BufferedImage duckUse = aggresDuckPic.getSubimage(i*200, 0, 200, 200);
+		BufferedImage duckUse = aggresDuckPic.getSubimage(i*75, 0, 75, 75);
 		g.drawImage(duckUse, resizeDuck, x, y);
 	}
 	
 	public static void drawFrozenDuck(Graphics2D g, int x, int y, int i){
-		BufferedImage duckUse = frozenDuckPic.getSubimage(i*200, 0, 200, 200);
+		BufferedImage duckUse = frozenDuckPic.getSubimage(i*75, 0, 75, 75);
 		g.drawImage(duckUse, resizeDuck, x, y);
 	}
 
 	public static void drawDragon(Graphics2D g, int x, int y, int i){
 		/* fill code */
-		int xx = i*500;
-		BufferedImage dragonUse = dragon.getSubimage(xx, 0, 500, 700);
+		int xx = i*75;
+		BufferedImage dragonUse = dragon.getSubimage(xx, 0, 75, 105);
 		g.drawImage(dragonUse, resizeDragon, x, y);
 	}
 	
 	public static void drawSuperDragon(Graphics2D g, int x, int y, int i){
-		BufferedImage dragonUse = superDragon.getSubimage(i*500, 0, 500, 700);
+		BufferedImage dragonUse = superDragon.getSubimage(i*75, 0, 75, 105);
 		g.drawImage(dragonUse, resizeDragon, x, y);
 		
 	}
 	
 	public static void drawSmallDragon(Graphics2D g, int x, int y, int i){
-		BufferedImage dragonUse = smallDragon.getSubimage(i*500, 0, 500, 700);
+		BufferedImage dragonUse = smallDragon.getSubimage(i*75, 0, 75, 105);
 		g.drawImage(dragonUse, resizeDragon, x, y);
 	}
 
 	public static void drawCoverDragon(Graphics2D g, int x, int y, int i){
-		BufferedImage dragonUse = coverDragon.getSubimage(i*500, 0, 500, 700);
+		BufferedImage dragonUse = coverDragon.getSubimage(i*75, 0, 75, 105);
 		g.drawImage(dragonUse, resizeDragon, x, y);
 	}
 	
 	public static void drawCoverSmallDragon(Graphics2D g, int x, int y, int i){
-		BufferedImage dragonUse = coverSmallDragon.getSubimage(i*500, 0, 500, 700);
+		BufferedImage dragonUse = coverSmallDragon.getSubimage(i*75, 0, 75, 105);
 		g.drawImage(dragonUse, resizeDragon, x, y);
 	}
 	
@@ -166,17 +176,18 @@ public class DrawingUtility {
 	}
 	
 	public static void drawShell(Graphics2D g, int x, int y, int i){
-		BufferedImage shellUse = shell.getSubimage(i*200, 0, 200, 200);
+		BufferedImage shellUse = shell.getSubimage(i*75, 0, 75, 75);
 		g.drawImage(shellUse, resizeShell, x, y);
 	}
 		
 	public static void drawStar(Graphics2D g, int x, int y, int i){
-		BufferedImage starUse = star.getSubimage(i*100, 0, 100, 100);
+		BufferedImage starUse = star.getSubimage(i*30, 0, 30, 30);
 		g.drawImage(starUse, resizeStar, x, y);
 	}
 	
 	public static void drawGameName(Graphics2D g, int x, int y){
-		g.drawImage(gameName, resizeTwoFive, x, y);
+//		g.drawImage(gameName, resizeTwoFive, x, y);
+		g.drawImage(gameName, null, x, y);
 	}
 	
 	public static void drawPauseScreen(Graphics2D g){
@@ -196,8 +207,8 @@ public class DrawingUtility {
 		
 		g.drawImage(play, resizeHalf, 125+375/2, 475/2);
 		
-		if(AudioUtility.isMute) g.drawImage(sound.getSubimage(200, 0, 200, 200), resizeHalf, 125+375/2, 475/2+125);
-		else g.drawImage(sound.getSubimage(0, 0, 200, 200), resizeHalf, 125+375/2, 475/2+125);
+		if(AudioUtility.isMute) g.drawImage(sound.getSubimage(100, 0, 100, 100), resizeHalf, 125+375/2, 475/2+125);
+		else g.drawImage(sound.getSubimage(0, 0, 100, 100), resizeHalf, 125+375/2, 475/2+125);
 		
 		g.drawImage(home, resizeHalf, 375/2, 475/2+125);
 		g.drawImage(replay, resizeHalf, 375/2, 475/2);
@@ -263,16 +274,17 @@ public class DrawingUtility {
 		AlphaComposite tran = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.2f);
 		g.setComposite(tran);
 
+		AffineTransformOp resizeWinLine = new AffineTransformOp(AffineTransform.getScaleInstance(0.5,0.5), AffineTransformOp.TYPE_BICUBIC);
 		BufferedImage sub = winLine.getSubimage(0, 0, winLine.getWidth(), winLine.getHeight()*2/3);
 		
-		g.drawImage(sub, resizeHalf, 175, 125-45/2);
+		g.drawImage(sub, resizeWinLine, 175, 125-45/2);
 		int r = winLine.getWidth() * time/ PlayerStatus.timeMax;
 		if(r < 4) r = 4;
 
 		tran = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1);
 		g.setComposite(tran);
 		sub = winLine.getSubimage(0, 0, r, winLine.getHeight()*2/3);
-		g.drawImage(sub, resizeHalf, 175, 125-45/2);
+		g.drawImage(sub, resizeWinLine, 175, 125-45/2);
 	}
 	
 	public static void drawGameTitle(Graphics2D g,int iBG, int i, int ibut){
@@ -309,9 +321,9 @@ public class DrawingUtility {
 		tran = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1);
 		g.setComposite(tran);
 		
-		g.drawImage(startInfoBut, resizeBg, 10, 650);
-		if(AudioUtility.isMute) g.drawImage(sound.getSubimage(200, 0, 200, 200), resizeDragon, 560, 660);
-		else g.drawImage(sound.getSubimage(0, 0, 200, 200), resizeDragon, 560, 660);
+		g.drawImage(startInfoBut, resizeBut, 10, 650);
+		if(AudioUtility.isMute) g.drawImage(sound.getSubimage(100, 0, 100, 100), resizeDragon, 560, 660);
+		else g.drawImage(sound.getSubimage(0, 0, 100, 100), resizeDragon, 560, 660);
 		
 	}
 	
@@ -348,7 +360,7 @@ public class DrawingUtility {
 		g.setComposite(tran);
 		
 		g.drawImage(back, resizeBg, 10, 650);
-		g.drawImage(introGameBut, resizeBg, 590-125/3, 650);
+		g.drawImage(introGameBut, resizeBut, 590-125/3, 650);
 	}
 	
 	public static void drawIntroGame(Graphics2D g){

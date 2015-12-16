@@ -40,7 +40,7 @@ public class DragonSmall extends Dragon {
 		}
 		
 		if(GameLogic.playerStatus.isPause() || GameLogic.playerStatus.isEnd) return;
-		if(frameDelayCount==1){
+		if(frameDelayCount==2){
 			currentFrame++;
 			frameDelayCount = 0;
 		}else frameDelayCount++;

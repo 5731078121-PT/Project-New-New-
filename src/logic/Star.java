@@ -48,7 +48,10 @@ public class Star implements IRenderable{
 		DrawingUtility.drawStar(g, x, y, currentFrame);
 		
 		if(GameLogic.playerStatus.isPause() || GameLogic.playerStatus.isEnd) return;
+		if(frameDelayCount==1){
 			currentFrame++;
+			frameDelayCount = 0;
+		}else frameDelayCount++;
 		if(currentFrame == 7) currentFrame = 0;
 		
 	}
