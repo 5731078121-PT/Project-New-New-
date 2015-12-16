@@ -17,7 +17,7 @@ public class Dragon implements IRenderable{
 	protected int x;
 	public int y;
 	protected int hp;
-	protected int i , count;
+	protected int currentFrame , frameDelayCount;
 	protected boolean dead;
 	protected AlphaComposite tran;
 	public int column = 0;
@@ -60,12 +60,12 @@ public class Dragon implements IRenderable{
 	 
 	public void update(){
 		if(isFrozen){
-			if(i%4 == 0 ){
+			if(currentFrame%4 == 0 ){
 				this.y += speed; 			
-			}else if(i%4 ==1){}
+			}else if(currentFrame%4 ==1){}
 			else this.y -= speed;
 		}else{			
-			if(i%4 == 0){
+			if(currentFrame%4 == 0){
 				this.y += speed; 			
 			}else this.y -= speed;
 		}
@@ -92,12 +92,12 @@ public class Dragon implements IRenderable{
 //		g.drawString(Integer.toString(column), x, y);
 //		g.drawString(Integer.toString(hp), x, y+10);
 
-		DrawingUtility.drawDragon(g, x, y, i);
+		DrawingUtility.drawDragon(g, x, y, currentFrame);
 		if(isFrozen){
 			tran = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float) ((float) hp/hpMax + 0.1));
 			g.setComposite(tran);
 			
-			DrawingUtility.drawCoverDragon(g, x, y, i);
+			DrawingUtility.drawCoverDragon(g, x, y, currentFrame);
 			if(frozenCount == frozenTime){
 				frozenCount = 0;
 				isFrozen = false;
@@ -106,11 +106,11 @@ public class Dragon implements IRenderable{
 		
 		
 		if(GameLogic.playerStatus.isPause() || GameLogic.playerStatus.isEnd) return;
-		if(count==0){
-			i++;
-			count = 0;
-		}else count++;
-		if(i == 8) i = 0;
+		if(frameDelayCount==0){
+			currentFrame++;
+			frameDelayCount = 0;
+		}else frameDelayCount++;
+		if(currentFrame == 8) currentFrame = 0;
 	}
 
 	@Override

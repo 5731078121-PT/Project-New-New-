@@ -25,12 +25,12 @@ public class DragonSuper extends Dragon{
 //		g.drawString(Integer.toString(column), x, y);
 //		g.drawString(Integer.toString(hp), x, y+10);
 
-		DrawingUtility.drawSuperDragon(g, x, y, i);
+		DrawingUtility.drawSuperDragon(g, x, y, currentFrame);
 		if(isFrozen){
 			tran = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float) ((float)hp/hpMax + 0.1));
 			g.setComposite(tran);
 			
-			DrawingUtility.drawCoverDragon(g, x, y, i);
+			DrawingUtility.drawCoverDragon(g, x, y, currentFrame);
 			if(frozenCount == frozenTime){
 				frozenCount = 0;
 				isFrozen = false;
@@ -39,11 +39,11 @@ public class DragonSuper extends Dragon{
 		
 		
 		if(GameLogic.playerStatus.isPause() || GameLogic.playerStatus.isEnd) return;
-		if(count==0){
-			i++;
-			count = 0;
-		}else count++;
-		if(i == 8) i = 0;
+		if(frameDelayCount==0){
+			currentFrame++;
+			frameDelayCount = 0;
+		}else frameDelayCount++;
+		if(currentFrame == 8) currentFrame = 0;
 	}
 
 	@Override

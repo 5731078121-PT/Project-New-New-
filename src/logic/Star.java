@@ -16,7 +16,7 @@ public class Star implements IRenderable{
 	private int x, y, goneCount;
 	private int speedX, speedY;
 	private boolean dead;
-	private int i,count;
+	private int currentFrame,frameDelayCount;
 	private boolean onFloor;
 
 	
@@ -27,7 +27,7 @@ public class Star implements IRenderable{
 		this.speedY = RandomUtility.random(1, 2);
 		this.speedX = RandomUtility.random(-1, 1);
 		this.dead = false;
-		this.i = 0;
+		this.currentFrame = 0;
 		this.goneCount = (int) gone;
 	}
 
@@ -45,11 +45,11 @@ public class Star implements IRenderable{
 			}
 			
 		}
-		DrawingUtility.drawStar(g, x, y, i);
+		DrawingUtility.drawStar(g, x, y, currentFrame);
 		
 		if(GameLogic.playerStatus.isPause() || GameLogic.playerStatus.isEnd) return;
-			i++;
-		if(i == 7) i = 0;
+			currentFrame++;
+		if(currentFrame == 7) currentFrame = 0;
 		
 	}
 

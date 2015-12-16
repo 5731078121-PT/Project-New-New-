@@ -19,7 +19,7 @@ public class Shell implements IRenderable {
 	public boolean dead;
 	private boolean bought;
 	private AlphaComposite tran;
-	private int i , count;
+	private int currentFrame , frameDelayCount;
 	public int column = -1;
 	private int coolDownCounter;
 	private int stageLock=0;
@@ -50,14 +50,14 @@ public class Shell implements IRenderable {
 		}else tran = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float) hp/hpMax);
 		g.setComposite(tran);
 		if(!dead)
-			DrawingUtility.drawShell(g, x, y, i);
+			DrawingUtility.drawShell(g, x, y, currentFrame);
 		if(GameLogic.playerStatus.isPause() || GameLogic.playerStatus.isEnd) return;
 		if(bought){
-			if(count==2){
-				i++;
-				count = 0;
-			}else count++;
-			if(i == 7) i = 1;
+			if(frameDelayCount==2){
+				currentFrame++;
+				frameDelayCount = 0;
+			}else frameDelayCount++;
+			if(currentFrame == 7) currentFrame = 1;
 		}
 		
 	}

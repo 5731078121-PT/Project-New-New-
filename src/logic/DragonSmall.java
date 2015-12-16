@@ -14,7 +14,7 @@ public class DragonSmall extends Dragon {
 		this.speed = 2;
 		this.hpMax = 20;
 		this.hp = (int) this.hpMax;
-		this.i = RandomUtility.random(0, 7);
+		this.currentFrame = RandomUtility.random(0, 7);
 				
 	}
 
@@ -27,12 +27,12 @@ public class DragonSmall extends Dragon {
 //		g.drawString(Integer.toString(column), x, y);
 //		g.drawString(Integer.toString(hp), x, y+10);
 		
-		DrawingUtility.drawSmallDragon(g, x, y, i);
+		DrawingUtility.drawSmallDragon(g, x, y, currentFrame);
 		if(isFrozen){
 			tran = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float) ((float) hp/hpMax + 0.1));
 			g.setComposite(tran);
 			
-			DrawingUtility.drawCoverSmallDragon(g, x, y, i);
+			DrawingUtility.drawCoverSmallDragon(g, x, y, currentFrame);
 			if(frozenCount == frozenTime){
 				frozenCount = 0;
 				isFrozen = false;
@@ -40,11 +40,11 @@ public class DragonSmall extends Dragon {
 		}
 		
 		if(GameLogic.playerStatus.isPause() || GameLogic.playerStatus.isEnd) return;
-		if(count==1){
-			i++;
-			count = 0;
-		}else count++;
-		if(i == 8) i = 0;
+		if(frameDelayCount==1){
+			currentFrame++;
+			frameDelayCount = 0;
+		}else frameDelayCount++;
+		if(currentFrame == 8) currentFrame = 0;
 	}
 
 	@Override
