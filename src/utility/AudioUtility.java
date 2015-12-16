@@ -21,6 +21,6 @@ public class AudioUtility {
 	public static AudioClip layEggSound = getSound("res/sound/layEggSound.wav");
 	public static AudioClip duckBiteSound = getSound("res/sound/duckJigSound.wav");
 	//public static AudioClip toNextSceneSound = getSound("res/sound/1Sound.wav");
-	public static AudioClip bgm = getSound("res/sound/background-music-new.wav");
+	public static AudioClip bgm = getSound("res/sound/background-music1.wav");
 	public static boolean isMute = false;
 }

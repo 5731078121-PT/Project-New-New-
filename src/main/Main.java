@@ -29,7 +29,7 @@ public class Main {
 		// TODO Auto-generated method stub
 		gameTitle = new GameTitle();
 		gameWindow = new GameWindow(gameTitle);
-		MusicThread musicThread = new MusicThread(AudioUtility.bgm, 5500);
+		MusicThread musicThread = new MusicThread(AudioUtility.bgm, 2020);
 		t = new Thread(musicThread);
 		t.start();
 		
