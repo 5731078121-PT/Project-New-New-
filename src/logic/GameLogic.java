@@ -167,7 +167,7 @@ public class GameLogic {
 						releaseSmallDragon = false;
 					}else{
 						smallDragonCount++;
-						System.out.println("           " +smallDragonCount);
+//						System.out.println("           " +smallDragonCount);
 					}
 				}
 				

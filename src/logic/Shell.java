@@ -53,7 +53,7 @@ public class Shell implements IRenderable {
 			DrawingUtility.drawShell(g, x, y, currentFrame);
 		if(GameLogic.playerStatus.isPause() || GameLogic.playerStatus.isEnd) return;
 		if(bought){
-			if(frameDelayCount==2){
+			if(frameDelayCount==5){
 				currentFrame++;
 				frameDelayCount = 0;
 			}else frameDelayCount++;

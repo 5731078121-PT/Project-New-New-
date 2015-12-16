@@ -208,8 +208,8 @@ public class GameScreen extends JComponent {
 					else if(InputUtility.getMouseX() >= 375/2 + 125 && InputUtility.getMouseX() <= 375/2 +225){
 //						new player up STAGE and STAR
 						if(!AudioUtility.isMute) AudioUtility.universalClickSound.play();
-						GameLogic.playerStatus = new PlayerStatus(GameLogic.playerStatus.getName(), GameLogic.playerStatus.getStage()+1, GameLogic.playerStatus.getMoney()+10);
 						RenderableHolder.clear();
+						GameLogic.playerStatus = new PlayerStatus(GameLogic.playerStatus.getName(), GameLogic.playerStatus.getStage()+1, GameLogic.playerStatus.getMoney()+10);
 						Main.runGame();
 					}
 				}
@@ -270,8 +270,8 @@ public class GameScreen extends JComponent {
 //		PLAY AGAIN
 					if(InputUtility.getMouseX() >= 375/2 && InputUtility.getMouseX() <= 375/2+100){
 						if(!AudioUtility.isMute) AudioUtility.universalClickSound.play();
-						RenderableHolder.clear();
 						GameLogic.playerStatus.setPause(false);
+						RenderableHolder.clear();
 						GameLogic.playerStatus = new PlayerStatus(GameLogic.playerStatus.getName(), GameLogic.playerStatus.getStage(), GameLogic.playerStatus.reMoney);  
 						Main.runGame();
 						
